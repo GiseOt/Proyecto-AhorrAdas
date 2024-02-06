@@ -1,13 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AhorrADAS</title>
-</head>
-<body>
-    
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="https://cdn.tailwindcss.com"></script>
+
+		<title>AhorrAdas</title>
+	</head>
+	<body class="bg-gray-100">
+		<header>
+			<nav
+				class="py-3 bg-orange-400 text-white flex justify-between items-baseline"
+			>
+				<div>
+					<h1 class="text-5xl flex items-end pl-8">
+						<img
+							src="./assets/image/pig-bank.svg"
+							alt="Logo alcancía de cerdito"
+							class="h-16"
+						/>
+						AhorrADAs
+					</h1>
+				</div>
+				<div class="navbar-burger burger">
+					<!--MENU HAMBURGUESA-->
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<div class="flex gap-16 pr-8">
+					<!--MENU NAVEGACION-->
+					<a href=""
+						><i
+							class="fa-solid fa-arrow-trend-up pr-1"
+							style="color: #ffffff"
+						></i
+						>Balance</a
+					>
+					<a href=""
+						><i class="fa-solid fa-tag pr-1" style="color: #ffffff"></i
+						>Categorías</a
+					>
+					<a href=""
+						><i
+							class="fa-solid fa-file-invoice-dollar pr-1"
+							style="color: #ffffff"
+						></i
+						>Reportes</a
+					>
+				</div>
+			</nav>
+		</header>
+		<main  id="main" class="px-12 flex justify-center mt-9 gap-14 text-xl pt-16">
+			<!--MAIN : CAJAS DE BALANCE, FILTROS Y OPERACIONES-->
+			<div class="flex flex-col gap-10">
+				<!--div para poder hacer el display flex con OPERACIONES-->
+				<section id="section-balance"
+					class="bg-white w-80 h-80 flex flex-col gap-14 px-7 rounded-xl"
+				>
+					<!--BALANCE-->
+					<h2 class="text-2xl mt-4">Balance</h2>
+					<div class="flex flex-col gap-10">
+						<div class="flex justify-between">
+							<p class="text-green-600">Ganancias</p>
+							<span class="text-green-600">+0</span>
+						</div>
+						<div class="flex justify-between">
+							<p class="text-red-600">Gastos</p>
+							<span class="text-red-600">+0</span>
+						</div>
+						<div class="flex justify-between">
+							<p>Total</p>
+							<span>+0</span>
+						</div>
+					</div>
+				</section>
+				<section id="section-filter" class="bg-white px-7 rounded-xl flex flex-col gap-14">
+					<!--FILTROS-->
+					<div class="flex gap-10 mt-4">
+						<h2 class="text-2xl">Filtros</h2>
+						<button type="button" class="text-cyan-600">Ocultar Filtros</button>
+					</div>
+					<div class="flex flex-col gap-5">
+						<div>
+							<h4>Tipo</h4>
+							<select
+								id="filterType"
+								class="bg-white border border-black py-2 px-8 rounded w-4/5"
+							>
+								<option value="Todos">Todos</option>
+								<option value="Gasto">Gasto</option>
+								<option value="Ganacia">Ganancia</option>
+							</select>
+						</div>
+						<div>
+							<h4>Categoría</h4>
+							<select
+								id="category"
+								class="bg-white border border-black py-2 px-8 rounded w-4/5"
+							>
+								<option value="Todas" selected>Todas</option>
+								<option value="Comida">Comida</option>
+								<option value="Servicios">Servicios</option>
+								<option value="Salidas">Salidas</option>
+								<option value="Educación">Educación</option>
+								<option value="Transporte">Transporte</option>
+								<option value="Trabajo">Trabajo</option>
+							</select>
+						</div>
+						<div>
+							<h4>Desde</h4>
+							<input
+								type="date"
+								name="fecha"
+								id="InputDate"
+								class="bg-white border border-black py-2 px-8 rounded w-4/5"
+							/>
+						</div>
+						<div>
+							<h4>Ordenar por</h4>
+							<select
+								id="filter-order"
+								class="bg-white border border-black py-2 px-8 rounded w-4/5"
+							>
+								<option value="MAS_RECIENTE" selected>Más reciente</option>
+								<option value="MENOS_RECIENTE">Menos reciente</option>
+								<option value="MAYOR_MONTO">Mayor monto</option>
+								<option value="MENOR_MONTO">Menor monto</option>
+								<option value="A/Z">A/Z</option>
+								<option value="Z/A">Z/A</option>
+							</select>
+						</div>
+					</div>
+				</section>
+			</div>
+			<section id="section-operations" class="bg-white w-2/6 h-96 px-7 rounded-xl">
+				<!--OPERACIONES-->
+				<div>
+					<h3>Operaciones</h3>
+                    
+				</div>
+			</section>
+		</main>
+	</body>
+	<script
+		src="https://kit.fontawesome.com/04baa38fa8.js"
+		crossorigin="anonymous"
+	></script>
 </html>
 
 
