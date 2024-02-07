@@ -4,13 +4,12 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="https://cdn.tailwindcss.com"></script>
-
 		<title>AhorrAdas</title>
 	</head>
 	<body class="bg-gray-100">
 		<header>
 			<nav
-				class="py-3 bg-orange-400 text-white flex justify-between items-baseline"
+				class="py-3 bg-orange-400 text-white flex justify-between items-baseline shadow-xl"
 			>
 				<div>
 					<h1 class="text-5xl flex items-end pl-8">
@@ -30,18 +29,18 @@
 				</div>
 				<div class="flex gap-16 pr-8">
 					<!--MENU NAVEGACION-->
-					<a href=""
+					<a href="index.html"
 						><i
 							class="fa-solid fa-arrow-trend-up pr-1"
 							style="color: #ffffff"
 						></i
 						>Balance</a
 					>
-					<a href=""
+					<a href="categories.html"
 						><i class="fa-solid fa-tag pr-1" style="color: #ffffff"></i
 						>Categorías</a
 					>
-					<a href=""
+					<a href="reports.html"
 						><i
 							class="fa-solid fa-file-invoice-dollar pr-1"
 							style="color: #ffffff"
@@ -51,12 +50,13 @@
 				</div>
 			</nav>
 		</header>
-		<main  id="main" class="px-12 flex justify-center mt-9 gap-14 text-xl pt-16">
+		<main id="main" class="px-12 flex justify-center mt-9 gap-14 text-xl pt-16">
 			<!--MAIN : CAJAS DE BALANCE, FILTROS Y OPERACIONES-->
 			<div class="flex flex-col gap-10">
 				<!--div para poder hacer el display flex con OPERACIONES-->
-				<section id="section-balance"
-					class="bg-white w-80 h-80 flex flex-col gap-14 px-7 rounded-xl"
+				<section
+					id="section-balance"
+					class="bg-white w-80 h-80 flex flex-col gap-14 px-7 rounded-xl shadow-xl"
 				>
 					<!--BALANCE-->
 					<h2 class="text-2xl mt-4">Balance</h2>
@@ -75,7 +75,10 @@
 						</div>
 					</div>
 				</section>
-				<section id="section-filter" class="bg-white px-7 rounded-xl flex flex-col gap-14">
+				<section
+					id="section-filter"
+					class="bg-white px-7 rounded-xl flex flex-col gap-14 mb-24 shadow-xl"
+				>
 					<!--FILTROS-->
 					<div class="flex gap-10 mt-4">
 						<h2 class="text-2xl">Filtros</h2>
@@ -117,7 +120,7 @@
 								class="bg-white border border-black py-2 px-8 rounded w-4/5"
 							/>
 						</div>
-						<div>
+						<div class="pb-8">
 							<h4>Ordenar por</h4>
 							<select
 								id="filter-order"
@@ -134,12 +137,28 @@
 					</div>
 				</section>
 			</div>
-			<section id="section-operations" class="bg-white w-2/6 h-96 px-7 rounded-xl">
+			<section
+				id="section-operations"
+				class="bg-white w-4/6 px-7 rounded-xl mb-24 shadow-xl"
+			>
 				<!--OPERACIONES-->
-				<div>
-					<h3>Operaciones</h3>
-                    
+				<div class="flex items-center justify-between">
+					<h3 class="text-2xl font-semibold py-4">Operaciones</h3>
+          <a href="newOperation.html" class="btn w-4/12 bg-green-300 rounded h-10 text-xl shadow-sm text-center">
+						+ Nueva operación
+					</a>
 				</div>
+				<span>
+					<img
+						class="mx-auto py-8"
+						src="./assets/image/pig-financial.png"
+						alt="Logo llenando la alcancía"
+					/>
+					<h6 class="text-center py-4 text-xl font-semibold">Sin resultados</h6>
+					<p class="text-center text-sm">
+						Cambia los filtros o agrega operaciones
+					</p>
+				</span>
 			</section>
 		</main>
 	</body>
@@ -148,5 +167,3 @@
 		crossorigin="anonymous"
 	></script>
 </html>
-
-
