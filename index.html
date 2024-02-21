@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="https://cdn.tailwindcss.com"></script>
+		<!-- SCRIPT DE GENERADOR DE ID -->
+		<script src="https://unpkg.com/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
 		<title>AhorrAdas</title>
 	</head>
 	<body class="bg-gray-100">
@@ -139,36 +141,53 @@
 			</div>
 			<section
 				id="section-operations"
-				class="bg-white w-4/6 px-7 rounded-xl mb-24 shadow-xl"
+				class="bg-white w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full"
 			>
 				<!--OPERACIONES-->
 				<div class="flex items-center justify-between">
 					<h3 class="text-2xl font-semibold py-4">Operaciones</h3>
-          <a href="newOperation.html" class="btn w-4/12 bg-green-300 rounded h-10 text-xl shadow-sm text-center">
+					<a
+						href="newOperation.html"
+						class="btn w-4/12 bg-green-300 rounded h-10 text-xl shadow-sm text-center"
+					>
 						+ Nueva operación
 					</a>
 				</div>
-				<span>
+				<!--agregue div/tablas que peramence ocultas y luego al agregar operacion aparecen-->
+				
+            <div class="flex justify-center gap-24 mt-9 pb-5">
+                <div class="column">
+                    Descripción
+                </div>
+                <div class="column">Categoría</div>
+                <div class="column">Fecha</div>
+                <div class="column">Monto</div>
+                <div class="column">Acciones</div>
+            </div>
+            <div id="operations"></div>
+        </div>
+				<!--Imagen que aparece si no hay operacion, y desaparece cuando hay-->
+				<span id="without-operations" class="hidden-element">
 					<img
 						class="mx-auto py-8"
 						src="./assets/image/pig-financial.png"
 						alt="Logo llenando la alcancía"
 					/>
 					<h6 class="text-center py-4 text-xl font-semibold">Sin resultados</h6>
-					<p class="text-center text-sm">
+					<p class="text-center text-sm pb-5">
 						Cambia los filtros o agrega operaciones
 					</p>
 				</span>
 			</section>
 		</main>
+		<script
+			src="https://kit.fontawesome.com/04baa38fa8.js"
+			crossorigin="anonymous"
+		></script>
+		<!-- JS DE OPERACIONES EN INDEX, CATEGORIAS Y REPORTES-->
+		<script src="operations.js"></script>
+		<script src="categories.js"></script>
+		<script src="reports.js"></script>
+		<!-- CIERRE DE SCRIPTS DE OPERACIONES, CATEGORIAS Y REPORTES -->
 	</body>
-	<script
-		src="https://kit.fontawesome.com/04baa38fa8.js"
-		crossorigin="anonymous"
-	></script>
-  <!-- JS DE OPERACIONES EN INDEX, CATEGORIAS Y REPORTES-->
-  <script src="operations.js"></script> 
-  <script src="categories.js"></script>
-  <script src="reports.js"></script> 
-  <!-- CIERRE DE SCRIPTS DE OPERACIONES, CATEGORIAS Y REPORTES -->
 </html>
