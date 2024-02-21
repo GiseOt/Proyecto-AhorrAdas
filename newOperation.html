@@ -4,11 +4,13 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="https://cdn.tailwindcss.com"></script>
+         <script src="https://unpkg.com/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
 		<title>AhorrAdas</title>
 	</head>
 	<body>
 		<main class="bg-gray-100 flex justify-centertext-xl">
-			<div
+			<div 
+                id="crearOperacion"
 				class="bg-white flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 shadow-xl"
 			>
 				<a
@@ -59,16 +61,18 @@
 					<button class="w-3/12 bg-green-300 rounded h-10 shadow-xl">
 						Cancelar
 					</button>
-					<button class="w-3/12 bg-green-300 rounded h-10 shadow-xl">
+					<button id="add-operation" class="w-3/12 bg-green-300 rounded h-10 shadow-xl">
 						Agregar
 					</button>
 				</div>
 			</div>
 		</main>
-	</body>
+	
   <!-- JS DE OPERACIONES EN INDEX, CATEGORIAS Y REPORTES-->
   <script src="operations.js"></script> 
   <script src="categories.js"></script>
   <script src="reports.js"></script> 
   <!-- CIERRE DE SCRIPTS DE OPERACIONES, CATEGORIAS Y REPORTES -->
+ 
+  </body>
 </html>
