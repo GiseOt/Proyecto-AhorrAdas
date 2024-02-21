@@ -4,6 +4,7 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="https://cdn.tailwindcss.com"></script>
+		<script src="https://unpkg.com/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
 		<title>AhorrAdas</title>
 	</head>
 	<body>
@@ -62,17 +63,34 @@
 						<input
 							type="text"
 							id="categoriesAdd__input"
-							class="border-solid border-black border w-9/12 rounded h-10"
+							class="border-solid border-black border w-9/12 rounded h-10 pl-4"
 						/>
 						<button
+							id="categoriesAdd__button"
 							class="categoriesAdd__button ml-2 w-2/12 bg-green-300 rounded h-10 shadow-xl"
 						>
 							Agregar
 						</button>
 					</div>
-					<div class="min-h-48">❤️</div>
+					<div id="categories"></div>
+					<!-- <div id="newCategory" class="flex h-10 flex-row mb-8">
+					
+						<span class="pl-4, w-10/12">Comida</span>
+						
+						<div class="flex gap-8">
+							<a href=""
+								><img class="h-6" src="./assets/image/edit.svg" alt="Editar"
+							/></a>
+							<a href=""
+								><img
+									class="h-6"
+									src="./assets/image/delete.svg"
+									alt="Eliminar"
+							/></a>
+						</div>
+					</div> -->
 				</div>
-				<div
+				<!-- <div
 					class="categoriesEdit__box mb-10 bg-white flex flex-col flex-1 mx-20 px-7 rounded-xl mt-10 shadow-xl"
 				>
 					<h2 class="text-3xl font-semibold py-4">Editar categoría</h2>
@@ -90,17 +108,23 @@
 							Editar
 						</button>
 					</div>
-				</div>
+				</div> -->
 			</section>
+			<button
+				id="clearLocalStorage"
+				class="categoriesAdd__button ml-2 w-2/12 bg-green-300 rounded h-10 shadow-xl ml-96 mb-32"
+			>
+				BORRAR TODO
+			</button>
 		</main>
+		<script
+			src="https://kit.fontawesome.com/04baa38fa8.js"
+			crossorigin="anonymous"
+		></script>
+		<!-- JS DE OPERACIONES EN INDEX, CATEGORIAS Y REPORTES-->
+		<script src="operations.js"></script>
+		<script src="categories.js"></script>
+		<script src="reports.js"></script>
+		<!-- CIERRE DE SCRIPTS DE OPERACIONES, CATEGORIAS Y REPORTES -->
 	</body>
-	<script
-		src="https://kit.fontawesome.com/04baa38fa8.js"
-		crossorigin="anonymous"
-	></script>
-  <!-- JS DE OPERACIONES EN INDEX, CATEGORIAS Y REPORTES-->
-  <script src="operations.js"></script> 
-  <script src="categories.js"></script>
-  <script src="reports.js"></script> 
-  <!-- CIERRE DE SCRIPTS DE OPERACIONES, CATEGORIAS Y REPORTES -->
 </html>
