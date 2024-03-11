@@ -1,73 +1,93 @@
-const descripcion = document.getElementById("new__description");
-const monto = document.getElementById("new__rate");
-const tipo = document.getElementById("new__type");
-const categoria = document.getElementById("new__categorie");
-const fecha = document.getElementById("new__date");
+const description = document.getElementById("new__description");
+const amount = document.getElementById("new__rate");
+const type = document.getElementById("new__type");
+const category = document.getElementById("new__categorie");
+const date = document.getElementById("new__date");
 
-let operacionesGuardadas =
-	JSON.parse(localStorage.getItem("operaciones")) || [];
+//************************* Local Storage ********************************************************** */
+let savedOperations = JSON.parse(localStorage.getItem("operations")) || [];
 
-const evaluarLocalStorage = () => {
-	if (localStorage.getItem("operaciones") !== null) {
-		operacionesGuardadas = JSON.parse(localStorage.getItem("operaciones"));
+const evaluateLocalStorage = () => {
+	if (localStorage.getItem("operations") !== null) {
+		savedOperations = JSON.parse(localStorage.getItem("operations"));
 	} else {
-		localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
+		localStorage.setItem("operations", JSON.stringify(savedOperations));
 	}
-	generarTabla();
+	generateTable();
 };
 
-const generarTabla = () => {
-	const operacionesTabla = document.getElementById("operations");
-	if (!operacionesTabla) return;
-	operacionesTabla.innerHTML = " ";
-	if (operacionesGuardadas.length > 0) {
-		for (let operacion of operacionesGuardadas) {
-			operacionesTabla.innerHTML += `
-            
-                
-                <div class="flex text-center">
-                    <div class="flex-1  justify-center gap-16 mt-9 pb-5"><span>${operacion.descripcion}</span></div>
-                    <div class="flex-1 flex justify-center gap-16 mt-9 pb-5"><span>${operacion.categoria}</span></div>
-                    <div class="flex-1 flex justify-center gap-16 mt-9 pb-5"><span>${operacion.fecha}</span></div>
-                    <div class="flex-1 flex justify-center gap-16 mt-9 pb-5"><span>${operacion.monto}</span></div>
-    
-                    <div class ="mt-9 flex gap-6">
-                        <a href=""><img
-							src="./assets/image/edit.svg"
-							alt="Logo alcancía de cerdito"
-							class="h-6"
-						/></a>
-                        <a href=""><img
-							src="./assets/image/delete.svg"
-							alt="delete"
-							class="h-6 delete-operation"
-                            id="delete"
-						/></a>
-                    </div>
-                </div>`;
+//*********************** Generate Operations Table ******************* */
+const generateTable = () => {
+	const operationsTable = document.getElementById("operations");
+	if (!operationsTable) return;
+	operationsTable.innerHTML = "";
+	if (savedOperations.length > 0) {
+		for (let operation of savedOperations) {
+			const amountType =
+				operation.type === "Ganancia" ? "text-green-400" : "text-red-400";
+			const amountSign = operation.type === "Ganancia" ? "+$" : "-$";
+
+			operationsTable.innerHTML += `
+<div class="flex justify-around pb-3">
+    <div class="mt-9 min-w-[150px]"><span>${operation.description}</span></div>
+    <div class="mt-9 min-w-[100px]"><span>${operation.category}</span></div>
+    <div class="mt-9 min-w-[100px]"><span>${operation.date}</span></div>
+    <div class="mt-9 ${amountType} min-w-[100px]"><span>${amountSign}${operation.amount}</span></div>
+
+    <div class="mt-9 flex gap-6">
+        <button><img src="./assets/image/edit.svg" alt="Piggy bank icon" class="h-6 edit-operation-link"/></button>
+        <button><img src="./assets/image/delete.svg" alt="delete" class="h-6 delete-operation"/></button> 
+    </div>
+</div>
+`;
 		}
 	}
 };
 
-evaluarLocalStorage();
+generateTable();
+evaluateLocalStorage();
 
-const botonAgregar = document.getElementById("add-operation"); //boton agregar operacion
-if (botonAgregar) {
-	//si está el botón agregar...se hace esto
-	botonAgregar.addEventListener("click", () => {
-		const nuevaOperacion = {
+//************************ Button to Add Table ************** */
+const addButton = document.getElementById("add-operation");
+if (addButton) {
+	addButton.addEventListener("click", () => {
+		const newOperation = {
 			id: uuidv4(),
-			descripcion: descripcion.value,
-			categoria: categoria.value,
-			fecha: fecha.value,
-			monto: monto.value,
+			description: description.value,
+			category: category.value,
+			date: date.value,
+			amount: amount.value,
 		};
-		operacionesGuardadas.push(nuevaOperacion); //agrega operacion
-		localStorage.setItem("operaciones", JSON.stringify(operacionesGuardadas));
-		generarTabla();
+		savedOperations.push(newOperation);
+		localStorage.setItem("operations", JSON.stringify(savedOperations));
+		generateTable();
 	});
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-	evaluarLocalStorage();
+	evaluateLocalStorage();
+});
+
+// ************************Hidden Operations / Image************* //
+
+const displayOperations = () => {
+	const operationsElement = document.getElementById("operations");
+	const divOpsElement = document.getElementById("div-ops");
+	const withoutOperationsElement =
+		document.getElementById("without-operations");
+
+	if (savedOperations.length === 0) {
+		operationsElement?.classList.add("hidden");
+		divOpsElement?.classList.add("hidden");
+		withoutOperationsElement?.classList.remove("hidden");
+	} else {
+		operationsElement?.classList.remove("hidden");
+		divOpsElement?.classList.remove("hidden");
+		withoutOperationsElement?.classList.add("hidden");
+	}
+};
+
+// Llama a displayOperations al cargar el DOM porque si no aparece la class vacia
+document.addEventListener("DOMContentLoaded", function () {
+	displayOperations();
 });
