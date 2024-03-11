@@ -4,6 +4,8 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<script src="https://cdn.tailwindcss.com"></script>
+		<!-- ID GENERATOR SCRIPT -->
+		<script src="https://unpkg.com/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
 		<title>AhorrAdas</title>
 	</head>
 	<body>
@@ -17,16 +19,18 @@
 					type="text"
 					id="categoriesEdit__input"
 					class="border-solid border-black border w-23/24 rounded h-10 mt-6 pl-4"
-					value="${categoryName}"
+					value=""
 				/>
 				<div class="categoriesEdit__buttons py-8 flex justify-end gap-1 pr-1">
 					<button
+						id="backToCategoriesHtml"
 						class="w-3/12 bg-green-300 rounded h-10 shadow-xl"
 						onclick="backToCategoriesHtml()"
 					>
 						Cancelar
 					</button>
 					<button
+						id="editCategory"
 						class="w-3/12 bg-green-300 rounded h-10 shadow-xl"
 						onclick="editCategory()"
 					>
