@@ -11,10 +11,10 @@
 	<body class="bg-gray-100">
 		<header>
 			<nav
-				class="py-3 bg-orange-400 text-white flex justify-between items-baseline shadow-xl"
+				class="py-3 bg-orange-400 text-white flex md:justify-between md:items-baseline shadow-xl"
 			>
 				<div>
-					<h1 class="text-5xl flex items-end pl-8">
+					<h1 class="text-4xl md:text-5xl flex items-end pl-8">
 						<img
 							src="./assets/image/pig-bank.svg"
 							alt="Logo alcancía de cerdito"
@@ -29,30 +29,30 @@
 					<span></span>
 					<span></span>
 				</div>
-				<div class="flex gap-16 pr-8">
+				<div class="hidden md:flex md:gap-16 md:pr-8 text-xl">
 					<!--MENU NAVEGACION-->
-					<a href="index.html"
+					<a href="index.html class= text-f"
 						><i
-							class="fa-solid fa-arrow-trend-up pr-1"
-							style="color: #ffffff"
+							class="fa-solid fa-arrow-trend-up pr-1 text-white"
+	
 						></i
 						>Balance</a
 					>
 					<a href="categories.html"
-						><i class="fa-solid fa-tag pr-1" style="color: #ffffff"></i
+						><i class="fa-solid fa-tag pr-1 text-white"></i
 						>Categorías</a
 					>
 					<a href="reports.html"
 						><i
-							class="fa-solid fa-file-invoice-dollar pr-1"
-							style="color: #ffffff"
+							class="fa-solid fa-file-invoice-dollar pr-1 text-white"
+							
 						></i
 						>Reportes</a
 					>
 				</div>
 			</nav>
 		</header>
-		<main id="main" class="px-12 flex justify-center mt-9 gap-14 text-xl pt-16">
+		<main id="main" class="px-12 flex flex-col items-center  md:flex-row  md:justify-center md:items-start mt-9 gap-14 text-xl pt-16">
 			<!--MAIN : CAJAS DE BALANCE, FILTROS Y OPERACIONES-->
 			<div class="flex flex-col gap-10">
 				<!--div para poder hacer el display flex con OPERACIONES-->
@@ -141,7 +141,7 @@
 			</div>
 			<section
 				id="section-operations"
-				class="bg-white w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full"
+				class="bg-white w-80 md:w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full"
 			>
 				<!--OPERACIONES-->
 				<div class="flex items-center justify-between">
@@ -155,7 +155,7 @@
 				</div>
 				<!--agregue div/tablas que peramence ocultas y luego al agregar operacion aparecen-->
 				
-            <div class="flex justify-center gap-24 mt-9 pb-5">
+            <div class="flex justify-around pb-5 hidden " id ="div-ops">
                 <div class="column">
                     Descripción
                 </div>
@@ -164,10 +164,10 @@
                 <div class="column">Monto</div>
                 <div class="column">Acciones</div>
             </div>
-            <div id="operations"></div>
-        </div>
+            <div id="operations" class="hidden"></div>
+        
 				<!--Imagen que aparece si no hay operacion, y desaparece cuando hay-->
-				<span id="without-operations" class="hidden-element">
+				<span id="without-operations"><!--SUMAR CLASS HIDDEN-->
 					<img
 						class="mx-auto py-8"
 						src="./assets/image/pig-financial.png"
@@ -179,6 +179,7 @@
 					</p>
 				</span>
 			</section>
+                                
 		</main>
 		<script
 			src="https://kit.fontawesome.com/04baa38fa8.js"
