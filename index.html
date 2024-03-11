@@ -11,10 +11,10 @@
 	<body class="bg-gray-100">
 		<header>
 			<nav
-				class="py-3 bg-orange-400 text-white flex justify-between items-baseline shadow-xl"
+				class="py-3 bg-orange-400 text-white flex md:justify-between md:items-baseline shadow-xl"
 			>
 				<div>
-					<h1 class="text-5xl flex items-end pl-8">
+					<h1 class="text-4xl md:text-5xl flex items-end pl-8">
 						<img
 							src="./assets/image/pig-bank.svg"
 							alt="Logo alcancía de cerdito"
@@ -29,30 +29,26 @@
 					<span></span>
 					<span></span>
 				</div>
-				<div class="flex gap-16 pr-8">
+				<div class="hidden md:flex md:gap-16 md:pr-8 text-xl">
 					<!--MENU NAVEGACION-->
-					<a href="index.html"
-						><i
-							class="fa-solid fa-arrow-trend-up pr-1"
-							style="color: #ffffff"
-						></i
+					<a href="index.html class= text-f"
+						><i class="fa-solid fa-arrow-trend-up pr-1 text-white"></i
 						>Balance</a
 					>
 					<a href="categories.html"
-						><i class="fa-solid fa-tag pr-1" style="color: #ffffff"></i
-						>Categorías</a
+						><i class="fa-solid fa-tag pr-1 text-white"></i>Categorías</a
 					>
 					<a href="reports.html"
-						><i
-							class="fa-solid fa-file-invoice-dollar pr-1"
-							style="color: #ffffff"
-						></i
+						><i class="fa-solid fa-file-invoice-dollar pr-1 text-white"></i
 						>Reportes</a
 					>
 				</div>
 			</nav>
 		</header>
-		<main id="main" class="px-12 flex justify-center mt-9 gap-14 text-xl pt-16">
+		<main
+			id="main"
+			class="px-12 flex flex-col items-center md:flex-row md:justify-center md:items-start mt-9 gap-14 text-xl pt-16"
+		>
 			<!--MAIN : CAJAS DE BALANCE, FILTROS Y OPERACIONES-->
 			<div class="flex flex-col gap-10">
 				<!--div para poder hacer el display flex con OPERACIONES-->
@@ -141,33 +137,32 @@
 			</div>
 			<section
 				id="section-operations"
-				class="bg-white w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full"
+				class="bg-white w-80 md:w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full"
 			>
 				<!--OPERACIONES-->
 				<div class="flex items-center justify-between">
 					<h3 class="text-2xl font-semibold py-4">Operaciones</h3>
 					<a
 						href="newOperation.html"
-						class="btn w-4/12 bg-green-300 rounded h-10 text-xl shadow-sm text-center"
+						class="btn w-4/3 bg-green-300 text-xl shadow-sm text-center px-4 py-2 rounded"
 					>
 						+ Nueva operación
 					</a>
 				</div>
 				<!--agregue div/tablas que peramence ocultas y luego al agregar operacion aparecen-->
-				
-            <div class="flex justify-center gap-24 mt-9 pb-5">
-                <div class="column">
-                    Descripción
-                </div>
-                <div class="column">Categoría</div>
-                <div class="column">Fecha</div>
-                <div class="column">Monto</div>
-                <div class="column">Acciones</div>
-            </div>
-            <div id="operations"></div>
-        </div>
+
+				<div class="flex justify-around pb-5 hidden" id="div-ops">
+					<div class="column">Descripción</div>
+					<div class="column">Categoría</div>
+					<div class="column">Fecha</div>
+					<div class="column">Monto</div>
+					<div class="column">Acciones</div>
+				</div>
+				<div id="operations" class="hidden"></div>
+				<div id="modalContainer"></div>
+
 				<!--Imagen que aparece si no hay operacion, y desaparece cuando hay-->
-				<span id="without-operations" class="hidden-element">
+				<span id="without-operations" class="hidden">
 					<img
 						class="mx-auto py-8"
 						src="./assets/image/pig-financial.png"
@@ -178,6 +173,98 @@
 						Cambia los filtros o agrega operaciones
 					</p>
 				</span>
+				<div
+					id="editModal"
+					class="hidden bg-white flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 shadow-xl"
+				>
+					<button
+						id="close-modal-edit"
+						class="btn w-10 bg-green-300 rounded h-10 text-2xl shadow-xl text-center flex-end mt-4"
+					>
+						X
+					</button>
+					<h2 class="text-3xl font-semibold py-4">Nueva operación</h2>
+					<label for="new__description--edit" class="font-semibold"
+						>Descripción</label
+					>
+					<input
+						type="text"
+						id="new__description--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-4/5 mb-8"
+					/>
+
+					<label for="new__rate--edit" class="font-semibold">Monto</label>
+					<input
+						type="number"
+						id="new__rate--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-4/5 mb-8"
+					/>
+
+					<label for="new__type--edit" class="font-semibold">Tipo</label>
+					<select
+						id="new__type--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-4/5 mb-8"
+					>
+						<option value="Gasto">Gasto</option>
+						<option value="Ganancia" selected>Ganancia</option>
+					</select>
+
+					<label for="new__categorie--edit" class="font-semibold"
+						>Categoría</label
+					>
+					<select
+						id="new__categorie--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-4/5 mb-8"
+					>
+						<option value="Comida">Comida</option>
+					</select>
+
+					<label for="new__date--edit" class="font-semibold">Fecha</label>
+					<input
+						type="date"
+						id="new__date--edit"
+						class="border-solid border-black border w-4/5 rounded h-10 mt-2 mb-8"
+					/>
+
+					<div class="categoriesEdit__buttons py-8 flex justify-end gap-1 pr-1">
+						<button class="w-3/12 bg-green-300 rounded h-10 shadow-xl">
+							Cancelar
+						</button>
+						<button
+							class="w-3/12 bg-green-300 rounded h-10 shadow-xl"
+							id="save-edited-operation-button"
+						>
+							Editar
+						</button>
+					</div>
+				</div>
+				<div
+					id="delete-modal-confirmation"
+					class="hidden fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex justify-center items-center"
+				>
+					<div class="bg-white p-8 rounded shadow-md">
+						<div class="mb-4">
+							<h2 class="text-xl font-semibold text-gray-800">Advertencia</h2>
+							<p class="text-gray-600">
+								¿Estás seguro de que deseas eliminar este elemento?
+							</p>
+						</div>
+						<div class="flex justify-end">
+							<button
+								id="cancelButton"
+								class="mr-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded"
+							>
+								Cancelar
+							</button>
+							<button
+								id="deleteButton"
+								class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+							>
+								Eliminar
+							</button>
+						</div>
+					</div>
+				</div>
 			</section>
 		</main>
 		<script
@@ -188,6 +275,7 @@
 		<script src="operations.js"></script>
 		<script src="categories.js"></script>
 		<script src="reports.js"></script>
+
 		<!-- CIERRE DE SCRIPTS DE OPERACIONES, CATEGORIAS Y REPORTES -->
 	</body>
 </html>
