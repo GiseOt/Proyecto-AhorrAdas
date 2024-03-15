@@ -4,6 +4,7 @@ const amount = document.getElementById("new__rate");
 const type = document.getElementById("new__type");
 const category = document.getElementById("new__categorie");
 const date = document.getElementById("new__date");
+const typeVale = document.getElementById("new__type");
 
 //************************* Local Storage ********************************************************** */
 
@@ -19,30 +20,31 @@ const evaluateLocalStorage = () => {
 	generateTable();
 };
 
-//*****************ʕ•́ᴥ•̀ʔっ****Edit Operation* ʕ•́ᴥ•̀ʔっ*****************//
+//*********************Edit Operation****ʕ•́ᴥ•̀ʔっ************************//
 
-// Función para encontrar una operación por su ID en el array savedOperations
+// Busca la operación que esta guardada en savedOperations //identifica mi operacion a traves del id
 const findOperationById = (operationId) => {
 	return savedOperations.find((op) => op.id === operationId);
 };
 
 /*/******************************************************************* */
 const editEvent = () => {
-	const editButtons = document.querySelectorAll(".edit-operation-link");
+	const editButtons = document.querySelectorAll(".edit-operation-link"); // Obtener todos los botones de edición (lapiz)
 
 	editButtons.forEach((button) => {
 		button.addEventListener("click", () => {
-			const operationId = button.id.slice(5); // Obtener el ID de la operación desde el ID del botón
-			console.log("Este es mi ID:", operationId); // Verificar que se obtenga el ID correctamente
-			showModalEdit(operationId); // Llamar a la función showModalEdit con el ID de la operación
+			const operationId = button.id.slice(5); // click en cada boton + id de la operación
+			console.log("Este es mi ID:", operationId); //
+			showModalEdit(operationId); //Activa mi modal al hacer click
 		});
 	});
 };
+//función para guardar mi edición
 const saveEditedOperation = (operationId) => {
 	// Encuentra la operación correspondiente por su ID
 	const operation = savedOperations.find((op) => op.id === operationId);
 	if (operation) {
-		// Actualiza la operación en la lista
+		// Actualiza la operación por la editada // mis input de edicion . value
 		operation.description = descriptionEdit.value;
 		operation.amount = rateEdit.value;
 		operation.type = typeEdit.value;
@@ -57,14 +59,13 @@ const saveEditedOperation = (operationId) => {
 	}
 };
 
-// Función para mostrar la modal de edición con los detalles de la operación
-
 const descriptionEdit = document.getElementById("new__description--edit");
 const rateEdit = document.getElementById("new__rate--edit");
 const typeEdit = document.getElementById("new__type--edit");
 const categoryEdit = document.getElementById("new__categorie--edit");
 const dateEdit = document.getElementById("new__date--edit");
 
+//Muestro mi modal
 const showModalEdit = (operationId) => {
 	const editModal = document.getElementById("editModal");
 	editModal.classList.add("block");
@@ -85,7 +86,7 @@ const showModalEdit = (operationId) => {
 		// Agregar un evento de clic al botón de guardar
 		saveButton.addEventListener("click", (e) => {
 			e.preventDefault();
-			// Llamar a la función para guardar la operación editada
+			// Llamar a la() para guardar la operación editada
 			saveEditedOperation(operationId);
 			// Ocultar la modal después de guardar
 			editModal.classList.add("hidden");
@@ -93,7 +94,7 @@ const showModalEdit = (operationId) => {
 			generateTable();
 		});
 
-		// Botón de cerrar
+		// Botón de cerrar modal
 		const closeButtonModal = document.getElementById("close-modal-edit");
 		closeButtonModal.addEventListener("click", () => {
 			editModal.classList.add("hidden"); // Ocultar la modal
@@ -103,7 +104,7 @@ const showModalEdit = (operationId) => {
 	}
 };
 
-//*****************ʕ•́ᴥ•̀ʔっ****Remove Operation* ʕ•́ᴥ•̀ʔっ*****************//
+//*********************Remove Operation* *******ʕ•́ᴥ•̀ʔっ*********//
 
 const deleteEvent = () => {
 	const deleteButtons = document.querySelectorAll(".delete-operation");
@@ -117,7 +118,7 @@ const deleteEvent = () => {
 	});
 };
 
-// Función para mostrar la modal de eliminación con el ID de la operación a eliminar
+// () Muestra la modal de eliminación con el ID de la operación a eliminar
 const showModalDelete = (operationIdDelete) => {
 	const deleteModal = document.getElementById("delete-modal-confirmation");
 	deleteModal.classList.add("block");
@@ -155,12 +156,12 @@ const generateTable = () => {
 	if (savedOperations.length > 0) {
 		for (let operation of savedOperations) {
 			const amountType =
-				operation.type === "ganancia" ? "text-green-400" : "text-red-400";
-			const amountSign = operation.type === "ganancia" ? "+$" : "-$";
+				operation.type === "Ganancia" ? "text-green-600" : "text-red-600";
+			const amountSign = operation.type == "Ganancia" ? "+$" : "-$";
 			operationsTable.innerHTML += `
-<div class="flex justify-around pb-3">
+<div class="flex justify-around pb-3 text-center items-center">
     <div class="mt-9 min-w-[150px]"><span>${operation.description}</span></div>
-    <div class="mt-9 min-w-[100px]"><span>${operation.category}</span></div>
+    <div class="mt-9 min-w-[100px] bg-orange-100 text-orange-400 rounded-lg "><span>${operation.category}</span></div>
     <div class="mt-9 min-w-[100px]"><span>${operation.date}</span></div>
     <div class="mt-9 ${amountType} min-w-[100px]"><span>${amountSign}${operation.amount}</span></div>
     <div class="mt-9 flex gap-6">
@@ -176,7 +177,7 @@ const generateTable = () => {
 	editEvent();
 };
 
-// llamo a  la función para evaluar el localStorage
+// llamo a mi función para evaluar el localStorage
 evaluateLocalStorage();
 
 /************************ Button to Add Table ************** */
@@ -190,6 +191,7 @@ if (addButton) {
 			category: category.value,
 			date: date.value,
 			amount: amount.value,
+			type: type.value,
 		};
 		savedOperations.push(newOperation);
 		localStorage.setItem("operations", JSON.stringify(savedOperations));
@@ -199,7 +201,7 @@ if (addButton) {
 
 // ************************Hidden Operations/Image************* //
 
-// Ocultar o mostrar la tabla de operaciones según si hay operaciones guardadas
+// Ocultar o mostrar la tabla de operaciones según  operaciones guardadas
 const displayOperations = () => {
 	const operationsElement = document.getElementById("operations");
 	const divOpsElement = document.getElementById("div-ops");
@@ -219,3 +221,41 @@ const displayOperations = () => {
 
 // Llamar a displayOperations al cargar el DOM
 document.addEventListener("DOMContentLoaded", displayOperations);
+
+/*********************** Section Balance******************* */
+
+const expenses = document.getElementById("balance-expenses");
+const earnings = document.getElementById("balance-earnings");
+const balanceTotal = document.getElementById("balance-total");
+
+//operación que suma las ganancias
+let gananciasAcumuladas = 0;
+gananciasAcumuladas = savedOperations.reduce((total, { amount, type }) => {
+	if (type === "Ganancia") {
+		return total + parseInt(amount);
+	} else {
+		return total;
+	}
+}, gananciasAcumuladas);
+
+earnings.innerText = gananciasAcumuladas;
+
+//operación que suma los gastos
+
+let gastosAcumulados = 0;
+gastosAcumulados = savedOperations.reduce((total, { amount, type }) => {
+	if (type === "Gasto") {
+		return total + parseInt(amount);
+	} else {
+		return total;
+	}
+}, gastosAcumulados);
+
+expenses.innerText = gastosAcumulados;
+
+// resultado de la operación de resta entra ganacias y gasto
+let resultBalance = 0;
+if (gananciasAcumuladas !== 0 || gastosAcumulados !== 0) {
+	resultBalance = gananciasAcumuladas - gastosAcumulados;
+}
+balanceTotal.innerText = resultBalance;

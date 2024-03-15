@@ -6,6 +6,7 @@
 		<script src="https://cdn.tailwindcss.com"></script>
 		<!-- SCRIPT DE GENERADOR DE ID -->
 		<script src="https://unpkg.com/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/tempo.js@2.0.0/dist/tempo.min.js"></script>
 		<title>AhorrAdas</title>
 	</head>
 	<body class="bg-gray-100">
@@ -61,15 +62,19 @@
 					<div class="flex flex-col gap-10">
 						<div class="flex justify-between">
 							<p class="text-green-600">Ganancias</p>
-							<span class="text-green-600">+0</span>
+							<span class="text-green-600 font-semibold" id="balance-earnings"
+								>+0</span
+							>
 						</div>
 						<div class="flex justify-between">
 							<p class="text-red-600">Gastos</p>
-							<span class="text-red-600">+0</span>
+							<span class="text-red-600 font-semibold" id="balance-expenses"
+								>+0</span
+							>
 						</div>
 						<div class="flex justify-between">
 							<p>Total</p>
-							<span>+0</span>
+							<span class="font-semibold" id="balance-total">+0</span>
 						</div>
 					</div>
 				</section>
@@ -78,11 +83,11 @@
 					class="bg-white px-7 rounded-xl flex flex-col gap-14 mb-24 shadow-xl"
 				>
 					<!--FILTROS-->
-					<div class="flex gap-10 mt-4">
+					<div class="flex gap-10 mt-6">
 						<h2 class="text-2xl">Filtros</h2>
 						<button type="button" class="text-cyan-600">Ocultar Filtros</button>
 					</div>
-					<div class="flex flex-col gap-5">
+					<div class="flex flex-col gap-5" id="filter-hidden">
 						<div>
 							<h4>Tipo</h4>
 							<select
@@ -144,7 +149,7 @@
 					<h3 class="text-2xl font-semibold py-4">Operaciones</h3>
 					<a
 						href="newOperation.html"
-						class="btn w-4/3 bg-green-300 text-xl shadow-sm text-center px-4 py-2 rounded"
+						class="btn text-gray-800 py-2 px-8 font-medium rounded-xl bg-green-300 hover:border-4 border-transparent hover:border-green-600 hover:bg-white"
 					>
 						+ Nueva operación
 					</a>
@@ -175,7 +180,7 @@
 				</span>
 				<div
 					id="editModal"
-					class="hidden bg-white flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 shadow-xl"
+					class="hidden bg-orange-100 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 shadow-xl fixed top-0 right-0 bottom-0 left-0 z-10"
 				>
 					<button
 						id="close-modal-edit"
@@ -183,7 +188,7 @@
 					>
 						X
 					</button>
-					<h2 class="text-3xl font-semibold py-4">Nueva operación</h2>
+					<h2 class="text-3xl font-semibold py-4">Editar operación</h2>
 					<label for="new__description--edit" class="font-semibold"
 						>Descripción</label
 					>
