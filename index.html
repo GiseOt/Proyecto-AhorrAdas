@@ -271,6 +271,316 @@
 					</div>
 				</div>
 			</section>
+           <!-- NEW OPERATION-->
+           <div class="bg-gray-100 flex justify-centertext-xl hidden">
+			<div
+				id="crearOperacion"
+				class="bg-white flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 shadow-xl"
+			>
+				<a
+					href="index.html"
+					class="btn w-10 bg-green-300 rounded h-10 text-2xl shadow-xl text-center flex-end mt-4"
+				>
+					X
+				</a>
+				<h2 class="text-3xl font-semibold py-4">Nueva operación</h2>
+				<label for="new__description" class="font-semibold">Descripción</label>
+				<input
+					type="text"
+					id="new__description"
+					class="bg-white border border-black py-2 px-8 rounded w-4/5 mb-8"
+				/>
+
+				<label for="new__rate" class="font-semibold">Monto</label>
+				<input
+					type="number"
+					id="new__rate"
+					class="bg-white border border-black py-2 px-8 rounded w-4/5 mb-8"
+				/>
+
+				<label for="new__type" class="font-semibold">Tipo</label>
+				<select
+					id="new__type"
+					class="bg-white border border-black py-2 px-8 rounded w-4/5 mb-8"
+				>
+					<option value="gasto">Gasto</option>
+					<option value="ganancia" selected>Ganancia</option>
+				</select>
+
+				<label for="new__categorie" class="font-semibold">Categoría</label>
+				<select
+					id="new__categorie"
+					class="bg-white border border-black py-2 px-8 rounded w-4/5 mb-8"
+				>
+					<option value="Comida">Comida</option>
+				</select>
+
+				<label for="new__date" class="font-semibold">Fecha</label>
+				<input
+					type="date"
+					id="new__date"
+					class="border-solid border-black border w-4/5 rounded h-10 mt-2 mb-8"
+				/>
+
+				<div class="categoriesEdit__buttons py-8 flex justify-end gap-1 pr-1">
+					<button class="w-3/12 bg-green-300 rounded h-10 shadow-xl">
+						Cancelar
+					</button>
+					<button
+						id="add-operation"
+						class="w-3/12 bg-green-300 rounded h-10 shadow-xl"
+					>
+						Agregar
+					</button>
+				</div>
+			</div>
+		</div>
+
+            <!-- CATEGORIES-->
+           <div class="bg-gray-100 hidden">
+			<section class="containerCategories py-24">
+				<div
+					id="categoriesAdd__box"
+					class="categoriesAdd__box bg-white flex flex-col flex-1 mx-20 px-7 rounded-xl shadow-xl"
+				>
+					<h2 class="text-3xl font-semibold py-4">Categorías</h2>
+					<label for="categoriesAdd__input" class="font-medium text-lg"
+						>Nombre</label
+					>
+					<div class="categoriesAdd pt-2.5 pb-12">
+						<input
+							type="text"
+							id="categoriesAdd__input"
+							class="border-solid border-black border w-9/12 rounded h-10 pl-4"
+						/>
+						<button
+							id="categoriesAdd__button"
+							class="categoriesAdd__button ml-2 w-2/12 bg-green-300 rounded h-10 shadow-xl"
+						>
+							Agregar
+						</button>
+					</div>
+					<div id="categories__body"></div>
+				</div>
+			</section>
+			<div
+				id="categoriesEdit__box"
+				class="categoriesEdit__box mb-10 bg-white flex flex-col flex-1 mx-20 px-7 rounded-xl mt-10 shadow-xl hidden"
+			>
+				<h2 class="text-3xl font-semibold py-4 mt-20">Editar categoría</h2>
+				<label for="categoriesEdit__input">Nombre</label>
+				<input
+					type="text"
+					id="categoriesEdit__input"
+					class="border-solid border-black border w-23/24 rounded h-10 mt-6 pl-4"
+					value=""
+				/>
+				<div class="categoriesEdit__buttons py-8 flex justify-end gap-1 pr-1">
+					<button
+						id="closeEditCategory__btn"
+						class="w-3/12 bg-green-300 rounded h-10 shadow-xl"
+					>
+						Cancelar
+					</button>
+					<button
+						id="editCategory"
+						class="w-3/12 bg-green-300 rounded h-10 shadow-xl"
+					>
+						Editar
+					</button>
+				</div>
+			</div>
+			<div
+				id="modalDelete__cat"
+				class="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex justify-center items-center hidden"
+			>
+				<div class="bg-white p-8 rounded shadow-md">
+					<div class="mb-4">
+						<h2 class="text-xl font-semibold text-gray-800">Advertencia</h2>
+						<p class="text-gray-600">
+							¿Estás seguro de que deseas eliminar este elemento?
+						</p>
+					</div>
+					<div class="flex justify-end">
+						<button
+							id="cancelButton"
+							class="mr-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded"
+						>
+							Cancelar
+						</button>
+						<button
+							id="deleteButton"
+							class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+						>
+							Eliminar
+						</button>
+					</div>
+				</div>
+			</div>
+			<button
+				id="clearLocalStorage"
+				class="categoriesAdd__button ml-2 w-2/12 bg-green-300 rounded h-10 shadow-xl ml-96 mb-32"
+			>
+				BORRAR TODO
+			</button>
+		</div>
+             <!--REPORTS-->
+
+       <div class="bg-gray-100 hidden">
+			<!-- Reports Section -->
+			<!-- section reports  -->
+      <div class="flex justify-center pt-12">
+			<section
+				id="reports"
+				class="bg-white p-12 rounded drop-shadow-2xl border-2 border-[#F9A826] shadow-gray-400 2xl:w-2/4 xl:w-[700px] lg:w-[600px] w-4/5 lg:ml-6 ml-0 lg:mt-0 m-6 p-5 h-fit"
+			>
+				
+					<h2 class="pb-8 lg:text-4xl text-3xl font-semibold">Reportes</h2>
+
+					<!-- section reports img -->
+					<div class="imageReportes " id="imageReports">
+						<div class="p-2 sm:p-10 flex flex-col items-center w-full">
+							<img
+								src="assets/image/pig-noreports.svg"
+								alt=""
+								class="w-full sm:w-1/2"
+							/>
+							<h4 class="mb-2 text-xl sm:text-2xl font-semibold text-center">
+								Operaciones insuficientes
+							</h4>
+							<p class="lg:w-1/2 w-3/4 mt-2 text-center">
+								Prueba agregando más operaciones
+							</p>
+						</div>
+					</div>
+
+					<div id="tableReports" class="w-full">
+						<div class="py-4 w-full">
+							<h2 class="text-3xl font-black">Reportes</h2>
+						</div>
+						<div id="resume" class="py-4">
+							<div class="py-4">
+								<h3 class="text-2xl font-black">Resumen</h3>
+							</div>
+							<div class="px-5">
+								<div class="flex justify-between py-4">
+									<p class=" font-semibold w-2/5">
+										Categoría con mayor ganancia
+									</p>
+									<p class="w-1/4 font-semibold text-right">
+										<span id="catMoreGain" class="bg-[#F9A826] p-1 rounded"
+											>Categoria</span
+										>
+									</p>
+									<p
+										id="amountMoreGain"
+										class="text-right text-green-500 font-bold w-1/4"
+									>
+										$0
+									</p>
+								</div>
+								<div class="flex justify-between py-4">
+									<p class=" font-semibold w-2/5">
+										Categoría con mayor gasto
+									</p>
+									<p class="w-1/4 font-semibold text-right">
+										<span id="catMinorGain" class="bg-[#F9A826] p-1 rounded"
+											>Categoria</span
+										>
+									</p>
+									<p
+										id="amountMinorGain"
+										class="text-right text-red-500 font-bold w-1/4"
+									>
+										$0
+									</p>
+								</div>
+								<div class="flex justify-between py-4">
+									<p class=" font-semibold w-2/5">
+										Categoría con mayor balance
+									</p>
+									<p class="w-1/4 font-semibold text-right">
+										<span id="catMoreBalance" class="bg-[#F9A826] p-1 rounded"
+											>Categoria</span
+										>
+									</p>
+									<p id="amountMoreBalance" class="text-right w-1/4 font-bold">
+										$0
+									</p>
+								</div>
+								<div class="flex justify-between py-4">
+									<p class=" font-semibold w-2/5">
+										Mes con mayor Ganancia
+									</p>
+									<p id="monthMoreGain" class="text-right w-1/4 font-semibold">
+										Mes con mayor ganancia
+									</p>
+									<p
+										id="monthAmountMoreGain"
+										class="text-right text-green-500 font-semibold w-1/4"
+									>
+										$
+									</p>
+								</div>
+								<div class="flex justify-between t py-4">
+									<p class=" font-semibold w-2/5">
+										Mes con mayor gasto
+									</p>
+									<p id="monthMinorGain" class="text-right w-1/4 font-semibold">
+										Mes con mayor Gasto
+									</p>
+									<p
+										id="montAmountMinorGain"
+										class="text-right text-red-500 font-bold w-1/4"
+									>
+										$
+									</p>
+								</div>
+							</div>
+						</div>
+						<div id="totalsByCategories" class="py-4">
+							<div class="py-8">
+								<h3 class="text-2xl font-black">Totales por categorías</h3>
+							</div>
+							<div class="flex justify-between">
+								<div class="w-full">
+									<div
+										class="flex justify-between  font-black py-4"
+									>
+										<h4 class="text-center w-1/4">Categoria</h4>
+										<h4 class="text-center w-1/4">Ganancia</h4>
+										<h4 class="text-center w-1/4">Gastos</h4>
+										<h4 class="text-center w-1/4">Balance</h4>
+									</div>
+									<div id="contCategory" class="flex flex-col"></div>
+								</div>
+							</div>
+						</div>
+						<div id="totalsByMonth" class="py-4">
+							<div class="py-8">
+								<h3 class="text-2xl font-black">Totales por mes</h3>
+							</div>
+							<div class="flex justify-between">
+								<div class="w-full">
+									<div
+										class="flex justify-between  font-black py-4"
+									>
+										<h4 class="text-center w-1/4">Mes</h4>
+										<h4 class="text-center w-1/4">Ganancia</h4>
+										<h4 class="text-center w-1/4">Gastos</h4>
+										<h4 class="text-center w-1/4">Balance</h4>
+									</div>
+									<div id="contDates" class="flex flex-col"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+
+
 		</main>
 		<script
 			src="https://kit.fontawesome.com/04baa38fa8.js"
