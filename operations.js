@@ -258,4 +258,4 @@ let resultBalance = 0;
 if (gananciasAcumuladas !== 0 || gastosAcumulados !== 0) {
 	resultBalance = gananciasAcumuladas - gastosAcumulados;
 }
-balanceTotal.innerText = resultBalance;
+balanceTotal.innerText = resultBalance; 
