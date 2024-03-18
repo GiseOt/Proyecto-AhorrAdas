@@ -5,6 +5,24 @@ const type = document.getElementById("new__type");
 const category = document.getElementById("new__categorie");
 const date = document.getElementById("new__date");
 const typeVale = document.getElementById("new__type");
+const expenses = document.getElementById("balance-expenses");
+const earnings = document.getElementById("balance-earnings");
+const balanceTotal = document.getElementById("balance-total");
+const divNewOperation = document.getElementById("createOperation");
+const PanelBalanceandFilter = document.getElementById("balance--filtro__panel"); //desaparece al hacer click
+const PanelOperations = document.getElementById("section-operation"); //desaparece al hacer click
+
+
+/****************************** Date ***************************** */
+  
+const convertDate = (date) => {
+	let rawDate = date.replaceAll("-", "/");
+	let dateArray = rawDate.split("/");
+
+	let newdate = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
+	return newdate;
+}  
+
 
 //************************* Local Storage ********************************************************** */
 
@@ -18,6 +36,8 @@ const evaluateLocalStorage = () => {
 		localStorage.setItem("operations", JSON.stringify(savedOperations));
 	}
 	generateTable();
+
+	//actualizarBalance();
 };
 
 //*********************Edit Operation****ʕ•́ᴥ•̀ʔっ************************//
@@ -49,7 +69,7 @@ const saveEditedOperation = (operationId) => {
 		operation.amount = rateEdit.value;
 		operation.type = typeEdit.value;
 		operation.category = categoryEdit.value;
-		operation.date = dateEdit.value;
+		operation.date = convertDate(dateEdit.value);
 		console.log("Operación editada guardada con éxito. ID:", operationId);
 
 		// Guardar cambios en el almacenamiento local
@@ -70,6 +90,7 @@ const showModalEdit = (operationId) => {
 	const editModal = document.getElementById("editModal");
 	editModal.classList.add("block");
 	editModal.classList.remove("hidden");
+   
 
 	const operation = findOperationById(operationId);
 
@@ -92,12 +113,14 @@ const showModalEdit = (operationId) => {
 			editModal.classList.add("hidden");
 			// Volver a generar la tabla de operaciones
 			generateTable();
+			//actualizarBalance();
 		});
 
 		// Botón de cerrar modal
 		const closeButtonModal = document.getElementById("close-modal-edit");
 		closeButtonModal.addEventListener("click", () => {
 			editModal.classList.add("hidden"); // Ocultar la modal
+        
 		});
 	} else {
 		console.log("Operación no encontrada");
@@ -124,8 +147,8 @@ const showModalDelete = (operationIdDelete) => {
 	deleteModal.classList.add("block");
 	deleteModal.classList.remove("hidden");
 
-	const cancelButton = document.getElementById("cancelButton");
-	const deleteButton = document.getElementById("deleteButton");
+	const cancelButton = document.getElementById("cancel-Button");
+	const deleteButton = document.getElementById("delete-Button");
 
 	// Agregar event listener al botón "Cancelar"
 	cancelButton.addEventListener("click", () => {
@@ -143,6 +166,7 @@ const showModalDelete = (operationIdDelete) => {
 		deleteModal.classList.remove("block");
 		deleteModal.classList.add("hidden");
 		displayOperations();
+		//actualizarBalance();
 	});
 };
 
@@ -189,13 +213,14 @@ if (addButton) {
 			id: uuidv4(),
 			description: description.value,
 			category: category.value,
-			date: date.value,
+			date: convertDate(date.value),
 			amount: amount.value,
 			type: type.value,
 		};
 		savedOperations.push(newOperation);
 		localStorage.setItem("operations", JSON.stringify(savedOperations));
 		generateTable();
+		//actualizarBalance();
 	});
 }
 
@@ -224,11 +249,7 @@ document.addEventListener("DOMContentLoaded", displayOperations);
 
 /*********************** Section Balance******************* */
 
-const expenses = document.getElementById("balance-expenses");
-const earnings = document.getElementById("balance-earnings");
-const balanceTotal = document.getElementById("balance-total");
-
-//operación que suma las ganancias
+//Función que suma las ganancias
 let gananciasAcumuladas = 0;
 gananciasAcumuladas = savedOperations.reduce((total, { amount, type }) => {
 	if (type === "Ganancia") {
@@ -240,7 +261,7 @@ gananciasAcumuladas = savedOperations.reduce((total, { amount, type }) => {
 
 earnings.innerText = gananciasAcumuladas;
 
-//operación que suma los gastos
+// Función que suma los gastos
 
 let gastosAcumulados = 0;
 gastosAcumulados = savedOperations.reduce((total, { amount, type }) => {
@@ -253,9 +274,46 @@ gastosAcumulados = savedOperations.reduce((total, { amount, type }) => {
 
 expenses.innerText = gastosAcumulados;
 
-// resultado de la operación de resta entra ganacias y gasto
+// Resta entra ganacias y gasto
 let resultBalance = 0;
 if (gananciasAcumuladas !== 0 || gastosAcumulados !== 0) {
 	resultBalance = gananciasAcumuladas - gastosAcumulados;
 }
-balanceTotal.innerText = resultBalance; 
+balanceTotal.innerText = resultBalance;
+
+
+
+/************************************* Show New Operation**************************** */
+
+//Botones
+const btnOpenNewOperation = document.getElementById("newOperation--link");
+const btnCloseNewOperation = document.getElementById("newOperation-hidden");
+const cancelNewOperation = document.getElementById("cancelnweOperation");
+
+document.addEventListener("DOMContentLoaded", function () {
+	const divNewOperation = document.getElementById("createOperation");
+	const PanelBalanceandFilter = document.getElementById(
+		"balance--filtro__panel"
+	);
+	const PanelOperations = document.getElementById("section-operations");
+	const btnOpenNewOperation = document.getElementById("newOperation--link");
+	const btnCloseNewOperation = document.getElementById("newOperation-hidden");
+	const cancelNewOperation = document.getElementById("cancelnweOperation");
+
+	const showNewOperation = () => {
+		divNewOperation.classList.remove("hidden");
+		PanelBalanceandFilter.classList.add("hidden");
+		PanelOperations.classList.add("hidden");
+	};
+
+	btnOpenNewOperation.addEventListener("click", showNewOperation);
+
+	const hideNewOperation = () => {
+		divNewOperation.classList.add("hidden");
+		PanelBalanceandFilter.classList.remove("hidden");
+		PanelOperations.classList.remove("hidden");
+	};
+
+	btnCloseNewOperation.addEventListener("click", hideNewOperation);
+	cancelNewOperation.addEventListener("click", hideNewOperation);
+});
