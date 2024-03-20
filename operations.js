@@ -10,19 +10,17 @@ const earnings = document.getElementById("balance-earnings");
 const balanceTotal = document.getElementById("balance-total");
 const divNewOperation = document.getElementById("createOperation");
 const PanelBalanceandFilter = document.getElementById("balance--filtro__panel"); //desaparece al hacer click
-const PanelOperations = document.getElementById("section-operation"); //desaparece al hacer click
+const PanelOperations = document.getElementById("section-operations"); //desaparece al hacer click
 
+/****************************** Date ****************************************** */
 
-/****************************** Date ***************************** */
-  
 const convertDate = (date) => {
 	let rawDate = date.replaceAll("-", "/");
 	let dateArray = rawDate.split("/");
 
 	let newdate = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
 	return newdate;
-}  
-
+};
 
 //************************* Local Storage ********************************************************** */
 
@@ -37,7 +35,6 @@ const evaluateLocalStorage = () => {
 	}
 	generateTable();
 
-	//actualizarBalance();
 };
 
 //*********************Edit Operation****ʕ•́ᴥ•̀ʔっ************************//
@@ -59,7 +56,7 @@ const editEvent = () => {
 		});
 	});
 };
-//función para guardar mi edición
+//Función para guardar mi edición
 const saveEditedOperation = (operationId) => {
 	// Encuentra la operación correspondiente por su ID
 	const operation = savedOperations.find((op) => op.id === operationId);
@@ -74,6 +71,9 @@ const saveEditedOperation = (operationId) => {
 
 		// Guardar cambios en el almacenamiento local
 		localStorage.setItem("operations", JSON.stringify(savedOperations));
+		generateTable();
+		displayOperations();
+		calculateBalance();
 	} else {
 		console.log("No encontré tu operación para editar");
 	}
@@ -90,7 +90,8 @@ const showModalEdit = (operationId) => {
 	const editModal = document.getElementById("editModal");
 	editModal.classList.add("block");
 	editModal.classList.remove("hidden");
-   
+	PanelBalanceandFilter.classList.add("hidden");
+	PanelOperations.classList.add("hidden");
 
 	const operation = findOperationById(operationId);
 
@@ -101,33 +102,50 @@ const showModalEdit = (operationId) => {
 		typeEdit.value = operation.type;
 		categoryEdit.value = operation.category;
 		dateEdit.value = operation.date;
-
+        
 		// Botón de "Editar"
 		const saveButton = document.getElementById("save-edited-operation-button");
 		// Agregar un evento de clic al botón de guardar
-		saveButton.addEventListener("click", (e) => {
-			e.preventDefault();
-			// Llamar a la() para guardar la operación editada
-			saveEditedOperation(operationId);
-			// Ocultar la modal después de guardar
-			editModal.classList.add("hidden");
-			// Volver a generar la tabla de operaciones
-			generateTable();
-			//actualizarBalance();
-		});
-
-		// Botón de cerrar modal
-		const closeButtonModal = document.getElementById("close-modal-edit");
-		closeButtonModal.addEventListener("click", () => {
-			editModal.classList.add("hidden"); // Ocultar la modal
-        
-		});
+		saveButton.dataset.operationId = operationId; // Agregamos el ID de la operación al botón de guardar
 	} else {
 		console.log("Operación no encontrada");
 	}
 };
 
-//*********************Remove Operation* *******ʕ•́ᴥ•̀ʔっ*********//
+// Evento de mi botón de editar
+document
+	.getElementById("save-edited-operation-button")
+	.addEventListener("click", (e) => {
+		e.preventDefault();
+		// Obtener el ID de la operación
+		const operationId = e.target.dataset.operationId;
+		// Llamar a la función para guardar la operación editada
+		saveEditedOperation(operationId);
+		// Ocultar la modal después de guardar
+		const editModal = document.getElementById("editModal");
+		editModal.classList.add("hidden");
+		// Mostrar los paneles de balance y filtro, y la tabla de operaciones
+		PanelBalanceandFilter.classList.remove("hidden");
+		PanelOperations.classList.remove("hidden");
+		// Generar la tabla y mostrar las operaciones
+		generateTable();
+		displayOperations();
+	});
+
+// Botón de cerrar modal
+const closeButtonModal = document.getElementById("close-modal-edit");
+closeButtonModal.addEventListener("click", () => {
+	const editModal = document.getElementById("editModal");
+	editModal.classList.add("hidden"); // Ocultar la modal
+	// Mostrar los paneles de balance y filtro, y la tabla de operaciones
+	PanelBalanceandFilter.classList.remove("hidden");
+	PanelOperations.classList.remove("hidden");
+	// Generar la tabla y mostrar las operaciones
+	generateTable();
+	displayOperations();
+});
+
+//*********************Remove Operation* *******ʕ•́ᴥ•̀ʔっ**************//
 
 const deleteEvent = () => {
 	const deleteButtons = document.querySelectorAll(".delete-operation");
@@ -166,7 +184,7 @@ const showModalDelete = (operationIdDelete) => {
 		deleteModal.classList.remove("block");
 		deleteModal.classList.add("hidden");
 		displayOperations();
-		//actualizarBalance();
+		calculateBalance();
 	});
 };
 
@@ -204,7 +222,7 @@ const generateTable = () => {
 // llamo a mi función para evaluar el localStorage
 evaluateLocalStorage();
 
-/************************ Button to Add Table ************** */
+/************************ Button to Add Table ***********************/
 
 const addButton = document.getElementById("add-operation");
 if (addButton) {
@@ -224,7 +242,7 @@ if (addButton) {
 	});
 }
 
-// ************************Hidden Operations/Image************* //
+// ************************Hidden Operations/Image*****************/
 
 // Ocultar o mostrar la tabla de operaciones según  operaciones guardadas
 const displayOperations = () => {
@@ -249,41 +267,36 @@ document.addEventListener("DOMContentLoaded", displayOperations);
 
 /*********************** Section Balance******************* */
 
-//Función que suma las ganancias
-let gananciasAcumuladas = 0;
-gananciasAcumuladas = savedOperations.reduce((total, { amount, type }) => {
-	if (type === "Ganancia") {
-		return total + parseInt(amount);
-	} else {
-		return total;
-	}
-}, gananciasAcumuladas);
+const calculateBalance = () => {
+	let accumulatedEarnings = 0;
+	let accumulatedExpenses = 0;
 
-earnings.innerText = gananciasAcumuladas;
+	accumulatedEarnings = savedOperations.reduce((total, { amount, type }) => {
+		if (type === "Ganancia") {
+			return total + parseInt(amount);
+		} else {
+			return total;
+		}
+	}, accumulatedEarnings);
 
-// Función que suma los gastos
+	accumulatedExpenses = savedOperations.reduce((total, { amount, type }) => {
+		if (type === "Gasto") {
+			return total + parseInt(amount);
+		} else {
+			return total;
+		}
+	}, accumulatedExpenses);
 
-let gastosAcumulados = 0;
-gastosAcumulados = savedOperations.reduce((total, { amount, type }) => {
-	if (type === "Gasto") {
-		return total + parseInt(amount);
-	} else {
-		return total;
-	}
-}, gastosAcumulados);
+	let resultBalance = accumulatedEarnings - accumulatedExpenses;
 
-expenses.innerText = gastosAcumulados;
+	earnings.innerText = accumulatedEarnings;
+	expenses.innerText = accumulatedExpenses;
+	balanceTotal.innerText = resultBalance;
+};
 
-// Resta entra ganacias y gasto
-let resultBalance = 0;
-if (gananciasAcumuladas !== 0 || gastosAcumulados !== 0) {
-	resultBalance = gananciasAcumuladas - gastosAcumulados;
-}
-balanceTotal.innerText = resultBalance;
+calculateBalance();
 
-
-
-/************************************* Show New Operation**************************** */
+/********************************Show New Operation**************************** */
 
 //Botones
 const btnOpenNewOperation = document.getElementById("newOperation--link");
@@ -298,9 +311,17 @@ document.addEventListener("DOMContentLoaded", function () {
 	const PanelOperations = document.getElementById("section-operations");
 	const btnOpenNewOperation = document.getElementById("newOperation--link");
 	const btnCloseNewOperation = document.getElementById("newOperation-hidden");
-	const cancelNewOperation = document.getElementById("cancelnweOperation");
+	//const cancelNewOperation = document.getElementById("cancelnweOperation");
 
 	const showNewOperation = () => {
+		// Limpiar los campos de entrada
+		description.value = "";
+		amount.value = "";
+		type.value = "";
+		category.value = "";
+		date.value = "";
+
+		// Mostrar la sección de nueva operación
 		divNewOperation.classList.remove("hidden");
 		PanelBalanceandFilter.classList.add("hidden");
 		PanelOperations.classList.add("hidden");
@@ -315,5 +336,4 @@ document.addEventListener("DOMContentLoaded", function () {
 	};
 
 	btnCloseNewOperation.addEventListener("click", hideNewOperation);
-	cancelNewOperation.addEventListener("click", hideNewOperation);
 });
