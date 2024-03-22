@@ -34,7 +34,6 @@ const evaluateLocalStorage = () => {
 		localStorage.setItem("operations", JSON.stringify(savedOperations));
 	}
 	generateTable();
-
 };
 
 //*********************Edit Operation****ʕ•́ᴥ•̀ʔっ************************//
@@ -102,7 +101,7 @@ const showModalEdit = (operationId) => {
 		typeEdit.value = operation.type;
 		categoryEdit.value = operation.category;
 		dateEdit.value = operation.date;
-        
+
 		// Botón de "Editar"
 		const saveButton = document.getElementById("save-edited-operation-button");
 		// Agregar un evento de clic al botón de guardar
@@ -191,12 +190,12 @@ const showModalDelete = (operationIdDelete) => {
 /*********************** Generate Operations Table ******************* */
 
 // Genero la tabla
-const generateTable = () => {
+const generateTable = (operations = savedOperations) => {
 	const operationsTable = document.getElementById("operations");
 	if (!operationsTable) return;
 	operationsTable.innerHTML = "";
-	if (savedOperations.length > 0) {
-		for (let operation of savedOperations) {
+	if (operations.length > 0) {
+		for (let operation of operations) {
 			const amountType =
 				operation.type === "Ganancia" ? "text-green-600" : "text-red-600";
 			const amountSign = operation.type == "Ganancia" ? "+$" : "-$";
@@ -336,4 +335,25 @@ document.addEventListener("DOMContentLoaded", function () {
 	};
 
 	btnCloseNewOperation.addEventListener("click", hideNewOperation);
+});
+
+//// Filtrito por tipo
+const selectedType = document.getElementById("filterType");
+
+const filtroTipo = (operationType) => {
+	let operacionesFiltradas;
+
+	if (operationType === "Todos") {
+		operacionesFiltradas = savedOperations; // Mostrar todas las operaciones sin filtrar
+	} else {
+		operacionesFiltradas = savedOperations.filter(
+			(operacion) => operacion.type === operationType
+		);
+	}
+
+	generateTable(operacionesFiltradas);
+};
+
+selectedType.addEventListener("change", (e) => {
+	filtroTipo(e.target.value);
 });
