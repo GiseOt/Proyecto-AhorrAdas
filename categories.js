@@ -155,25 +155,30 @@ const showModalDelete__cat = (categoryIdBin) => {
 
 //-------------------------------------------------------
 
-//event click to button add
-const addButton__cat = document.getElementById("categoriesAdd__button");
-if (addButton__cat) {
-	addButton__cat.addEventListener("click", () => {
-		const categoryNameInput = document.getElementById("categoriesAdd__input");
-		const categoryName = categoryNameInput.value.trim();
+document.addEventListener("DOMContentLoaded", () => {
+	const addButton__cat = document.getElementById("categoriesAdd__button");
+	if (addButton__cat) {
+		addButton__cat.addEventListener("click", () => {
+			const categoryNameInput = document.getElementById("categoriesAdd__input");
+			const categoryName = categoryNameInput.value.trim();
 
-		if (categoryName) {
-			const newCategory = {
-				id: uuidv4(),
-				categoryName: categoryName,
-			};
-			savedCategories.push(newCategory);
-			localStorage.setItem("categories", JSON.stringify(savedCategories));
-			loadCategories(savedCategories);
-			categoryNameInput.value = "";
-		}
-	});
-}
+			if (categoryName) {
+				const newCategory = {
+					id: uuidv4(),
+					categoryName: categoryName,
+				};
+				savedCategories.push(newCategory);
+				localStorage.setItem("categories", JSON.stringify(savedCategories));
+				loadCategories(savedCategories);
+				categoryNameInput.value = "";
+			}
+		});
+	}
+
+	// Llama a las funciones editPencilBtn__event() y deleteBinBtn__event()
+	editPencilBtn__event();
+	deleteBinBtn__event();
+});
 // Function to generate the HTML of a category
 
 const categoriesHTML = () => {
@@ -214,7 +219,7 @@ window.addEventListener("DOMContentLoaded", () => {
 const openCategories__btn = document.getElementById("openCategories");
 const panelBalanceandFilter = document.getElementById("balance--filtro__panel");
 const panelOperations = document.getElementById("section-operations");
-const containerCategories = document.getElementById("containerCategories");
+const containerCategories = document.getElementById("categoriesAdd__box");
 
 document.addEventListener("DOMContentLoaded", function () {
 	const showCategories = () => {
@@ -231,7 +236,8 @@ document.addEventListener("DOMContentLoaded", function () {
 const updateCategories = () => {
 	const categoriesAddInput = document.getElementById("categoriesAdd__input");
 	const categoriesBody = document.getElementById("categories__body");
-	const categorySelect = document.getElementById("category");
+	const categorySelect = document.getElementById("category__filter");
+	const newCategorySelect = document.getElementById("new__categorie");
 
 	// Get localStorage categories
 	let categories = JSON.parse(localStorage.getItem("categories")) || [];
@@ -239,29 +245,70 @@ const updateCategories = () => {
 	// Clear the current content of categories
 	categoriesBody.innerHTML = "";
 	categorySelect.innerHTML = '<option value="Todas" selected>Todas</option>';
+	newCategorySelect.innerHTML = "";
 
-	// Add categories to the filter sector
+	// Add categories to the filter sector and new category select
 	categories.forEach((category) => {
 		const categoryElement = document.createElement("div");
-		categoryElement.textContent = category.categoryName; // Use only the categoryName property
+		categoryElement.textContent = category.categoryName;
 		categoriesBody.appendChild(categoryElement);
 
 		const option = document.createElement("option");
 		option.value = category.categoryName;
 		option.textContent = category.categoryName;
 		categorySelect.appendChild(option);
-	});
 
-	// Add new category from input
-	categoriesAddInput.addEventListener("change", () => {
-		const newCategoryName = categoriesAddInput.value.trim(); // Get the new category name from the input
-		if (newCategoryName) {
-			const newCategory = { id: uuidv4(), categoryName: newCategoryName }; // Create a new category object with id and categoryName
-			categories.push(newCategory); // Add the new category object to the categories array
-			localStorage.setItem("categories", JSON.stringify(categories)); // Update the categories in localStorage
-			updateCategories(); // Reload categories
-			categoriesAddInput.value = "";
+		// Also add options to the new select element
+		const newOption = document.createElement("option");
+		newOption.value = category.categoryName;
+		newOption.textContent = category.categoryName;
+		newCategorySelect.appendChild(newOption);
+	});
+};
+
+const updateOperationsWithCategories = (newCategoryName) => {
+	savedOperations.forEach((operation) => {
+		if (!operation.category) {
+			operation.category = newCategoryName;
 		}
 	});
 };
+
+const categoriesAddInput = document.getElementById("categoriesAdd__input");
+
+categoriesAddInput.addEventListener("change", () => {
+	const newCategoryName = categoriesAddInput.value.trim();
+	if (newCategoryName) {
+		const newCategory = { id: uuidv4(), categoryName: newCategoryName };
+		let categories = JSON.parse(localStorage.getItem("categories")) || [];
+		categories.push(newCategory);
+		localStorage.setItem("categories", JSON.stringify(categories));
+		updateCategories();
+		updateOperationsWithCategories(newCategoryName);
+		categoriesAddInput.value = "";
+	}
+});
+
 updateCategories();
+
+// Filter by categories
+
+const selectedCategory = document.getElementById("category__filter");
+
+const filterByCategories = (categoryType) => {
+	let filteredCategories;
+
+	if (categoryType === "Todas") {
+		filteredCategories = savedOperations; // Correct the variable name
+	} else {
+		filteredCategories = savedOperations.filter(
+			(operation) => operation.category === categoryType // Correct property name
+		);
+	}
+
+	generateTable(filteredCategories);
+};
+
+selectedCategory.addEventListener("change", (e) => {
+	filterByCategories(e.target.value);
+});
