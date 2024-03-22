@@ -37,8 +37,8 @@
 						><i class="fa-solid fa-arrow-trend-up pr-1 text-white"></i
 						>Balance</a
 					>
-					<a href="categories.html"
-						><i class="fa-solid fa-tag pr-1 text-white"></i>Categorías</a
+					<button type="button" id="openCategories"
+						><i class="fa-solid fa-tag pr-1 text-white"></i>Categorías</button
 					>
 					<a href="reports.html"
 						><i class="fa-solid fa-file-invoice-dollar pr-1 text-white"></i
@@ -287,8 +287,8 @@
 		<!-- </div> -->
 
             <!-- CATEGORIES-->
-           <div class="bg-gray-100 hidden">
-			<section class="containerCategories py-24">
+   
+			<section id="containerCategories" class="containerCategories w-9/12 py-2 bg-gray-100 hidden">
 				<div
 					id="categoriesAdd__box"
 					class="categoriesAdd__box bg-white flex flex-col flex-1 mx-20 px-7 rounded-xl shadow-xl"
@@ -367,13 +367,13 @@
 					</div>
 				</div>
 			</div>
-			<button
+			<!-- <button
 				id="clearLocalStorage"
 				class="categoriesAdd__button ml-2 w-2/12 bg-green-300 rounded h-10 shadow-xl ml-96 mb-32"
 			>
 				BORRAR TODO
-			</button>
-		</div>
+			</button> -->
+		
              <!--REPORTS-->
 
        <div class="bg-gray-100 hidden">

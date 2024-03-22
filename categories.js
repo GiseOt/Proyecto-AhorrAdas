@@ -206,5 +206,62 @@ const categoriesHTML = () => {
 // Function to load categories on page load
 window.addEventListener("DOMContentLoaded", () => {
 	const savedCategories = initializeCategories();
-	loadCategories(savedCategories);
+	//loadCategories(savedCategories);
+	savedCategories.forEach((category) => categoriesHTML(category));
 });
+
+// FUNCTION TO ACCESS THE CATEGORIES SECTION
+const openCategories__btn = document.getElementById("openCategories");
+const panelBalanceandFilter = document.getElementById("balance--filtro__panel");
+const panelOperations = document.getElementById("section-operations");
+const containerCategories = document.getElementById("containerCategories");
+
+document.addEventListener("DOMContentLoaded", function () {
+	const showCategories = () => {
+		containerCategories.classList.remove("hidden");
+		panelBalanceandFilter.classList.add("hidden");
+		panelOperations.classList.add("hidden");
+	};
+
+	openCategories__btn.addEventListener("click", showCategories);
+});
+
+//FUNCTION TO INJECT CATEGORIES INTO FILTERS
+
+const updateCategories = () => {
+	const categoriesAddInput = document.getElementById("categoriesAdd__input");
+	const categoriesBody = document.getElementById("categories__body");
+	const categorySelect = document.getElementById("category");
+
+	// Get localStorage categories
+	let categories = JSON.parse(localStorage.getItem("categories")) || [];
+
+	// Clear the current content of categories
+	categoriesBody.innerHTML = "";
+	categorySelect.innerHTML = '<option value="Todas" selected>Todas</option>';
+
+	// Add categories to the filter sector
+	categories.forEach((category) => {
+		const categoryElement = document.createElement("div");
+		categoryElement.textContent = category.categoryName; // Use only the categoryName property
+		categoriesBody.appendChild(categoryElement);
+
+		const option = document.createElement("option");
+		option.value = category.categoryName;
+		option.textContent = category.categoryName;
+		categorySelect.appendChild(option);
+	});
+
+	// Add new category from input
+	categoriesAddInput.addEventListener("change", () => {
+		const newCategoryName = categoriesAddInput.value.trim(); // Get the new category name from the input
+		if (newCategoryName) {
+			const newCategory = { id: uuidv4(), categoryName: newCategoryName }; // Create a new category object with id and categoryName
+			categories.push(newCategory); // Add the new category object to the categories array
+			localStorage.setItem("categories", JSON.stringify(categories)); // Update the categories in localStorage
+			updateCategories(); // Reload categories
+			categoriesAddInput.value = "";
+		}
+	});
+};
+updateCategories();
