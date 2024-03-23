@@ -337,23 +337,46 @@ document.addEventListener("DOMContentLoaded", function () {
 	btnCloseNewOperation.addEventListener("click", hideNewOperation);
 });
 
-//// Filtrito por tipo
+/********************* Section Filter***************************** */
+/**Filter by Type**/
 const selectedType = document.getElementById("filterType");
 
-const filtroTipo = (operationType) => {
-	let operacionesFiltradas;
+const filterType = (operationType) => {
+	let filteredOperations;
 
 	if (operationType === "Todos") {
-		operacionesFiltradas = savedOperations; // Mostrar todas las operaciones sin filtrar
+		filteredOperations = savedOperations; // Mostrar todas las operaciones sin filtrar
 	} else {
-		operacionesFiltradas = savedOperations.filter(
+		filteredOperations = savedOperations.filter(
 			(operacion) => operacion.type === operationType
 		);
 	}
 
-	generateTable(operacionesFiltradas);
+	generateTable(filteredOperations);
 };
 
 selectedType.addEventListener("change", (e) => {
-	filtroTipo(e.target.value);
+	filterType(e.target.value);
+});
+
+
+
+/** Filtered Date **/
+
+const inputDate = document.getElementById("InputDate");
+
+const filterDateFrom = (selectedDate) => {
+	// Fecha parseada
+	const formattedDate = convertDate(selectedDate);
+
+	// Hasta la más reciente
+	const filteredDate = savedOperations.filter(
+		(operacion) => operacion.date >= formattedDate
+	);
+
+	generateTable(filteredDate);
+};
+
+inputDate.addEventListener("change", (e) => {
+	filterDateFrom(e.target.value);
 });
