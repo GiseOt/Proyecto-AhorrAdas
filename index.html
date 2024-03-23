@@ -12,7 +12,7 @@
 	<body class="bg-gray-100">
 		<header>
 			<nav
-				class="py-3 bg-orange-400 text-white flex md:justify-between md:items-baseline shadow-xl"
+				class="py-3 bg-orange-400 text-white flex justify-between items-center md:justify-between md:items-baseline shadow-xl"
 			>
 				<div>
 					<h1 class="text-4xl md:text-5xl flex items-end pl-8">
@@ -24,25 +24,56 @@
 						AhorrADAs
 					</h1>
 				</div>
-				<div class="navbar-burger burger">
-					<!--MENU HAMBURGUESA-->
-					<span></span>
-					<span></span>
-					<span></span>
+
+				<!-- MENÚ HAMBURGUESA -->
+				<div class="lg:hidden pr-8 relative">
+					<button id="btn-menu-burger" class="text-2xl">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<ul
+						id="mobile-menu"
+						class="hidden absolute border border-white-300 shadow-md rounded-md right-1 mt-3 bg-orange-400 p-2"
+					>
+						<li id="btn-balances-burger" class="py-2 pl-4">
+							<a href="#index.html" class="text-2xl flex items-center"
+								><i class="fa-solid fa-chart-line mr-2"></i>Balance</a
+							>
+						</li>
+						<li id="btn-categories-burger" class="py-2 pl-4">
+							<a href="#openCategories" class="text-2xl flex items-center"
+								><i class="fa-solid fa-tag mr-2"></i>Categorías</a
+							>
+						</li>
+						<li id="btn-reports-burger" class="py-2 pl-4">
+							<a href="#openReports" class="text-2xl flex items-center"
+								><i class="fa-solid fa-chart-pie mr-2"></i>Reportes</a
+							>
+						</li>
+					</ul>
 				</div>
+				<!-- MENU NAVEGACION DESKTOP  -->
 				<div class="hidden md:flex md:gap-16 md:pr-8 text-xl">
 					<!--MENU NAVEGACION-->
-					<a href="index.html" class="text-f"
-						><i class="fa-solid fa-arrow-trend-up pr-1 text-white"></i
-						>Balance</a
+					<a
+						href="index.html"
+						class="text-f hover:bg-[#F6CC64] hover:rounded-lg"
+						><i class="fa-solid fa-arrow-trend-up pr-1"></i>Balance</a
 					>
-					<button type="button" id="openCategories">
+					<button
+						type="button"
+						id="openCategories"
+						class="hover:bg-[#F6CC64] hover:rounded-lg"
+					>
 						<i class="fa-solid fa-tag pr-1 text-white"></i>Categorías
 					</button>
-					<a href="reports.html"
-						><i class="fa-solid fa-file-invoice-dollar pr-1 text-white"></i
-						>Reportes</a
+					<button
+						type="button"
+						id="openReports"
+						class="hover:bg-[#F6CC64] hover:rounded-lg"
 					>
+						<i class="fa-solid fa-file-invoice-dollar pr-1 text-white"></i>
+						Reportes
+					</button>
 				</div>
 			</nav>
 		</header>
@@ -440,158 +471,80 @@
 			</button> -->
 
 			<!--REPORTS-->
+			<div
+				class="hidden flex justify-center pt-0 bg-gray-100"
+				id="btn-reports"
+			>
+			<section
+    class="bg-white rounded drop-shadow-2xl border-2 border-[#F9A826] shadow-gray-400 2xl:w-full xl:w-full lg:w-full w-full lg:ml-6 ml-0 lg:mt-0 m-6 p-5 h-fit"
+>
 
-			<div class="bg-gray-100 hidden">
-				<!-- Reports Section -->
-				<!-- section reports  -->
+					<h2 class="pb-5 lg:text-4xl text-3xl font-semibold">Reportes</h2>
 
-				<section
-					id="reports"
-					class="bg-white p-12 rounded drop-shadow-2xl border-2 border-[#F9A826] shadow-gray-400 2xl:w-2/4 xl:w-[700px] lg:w-[600px] w-4/5 lg:ml-6 ml-0 lg:mt-0 m-6 p-5 h-fit"
-				>
-					<div class="flex justify-center pt-12">
-						<h2 class="pb-8 lg:text-4xl text-3xl font-semibold">Reportes</h2>
-
-						<!-- section reports img -->
-						<div class="imageReportes" id="imageReports">
-							<div class="p-2 sm:p-10 flex flex-col items-center w-full">
-								<img
-									src="assets/image/pig-noreports.svg"
-									alt=""
-									class="w-full sm:w-1/2"
-								/>
-								<h4 class="mb-2 text-xl sm:text-2xl font-semibold text-center">
-									Operaciones insuficientes
-								</h4>
-								<p class="lg:w-1/2 w-3/4 mt-2 text-center">
-									Prueba agregando más operaciones
-								</p>
-							</div>
-						</div>
-
-						<div id="tableReports" class="w-full">
-							<div class="py-4 w-full">
-								<h2 class="text-3xl font-black">Reportes</h2>
-							</div>
-							<div id="resume" class="py-4">
-								<div class="py-4">
-									<h3 class="text-2xl font-black">Resumen</h3>
-								</div>
-								<div class="px-5">
-									<div class="flex justify-between py-4">
-										<p class="font-semibold w-2/5">
-											Categoría con mayor ganancia
-										</p>
-										<p class="w-1/4 font-semibold text-right">
-											<span id="catMoreGain" class="bg-[#F9A826] p-1 rounded"
-												>Categoria</span
-											>
-										</p>
-										<p
-											id="amountMoreGain"
-											class="text-right text-green-500 font-bold w-1/4"
-										>
-											$0
-										</p>
-									</div>
-									<div class="flex justify-between py-4">
-										<p class="font-semibold w-2/5">Categoría con mayor gasto</p>
-										<p class="w-1/4 font-semibold text-right">
-											<span id="catMinorGain" class="bg-[#F9A826] p-1 rounded"
-												>Categoria</span
-											>
-										</p>
-										<p
-											id="amountMinorGain"
-											class="text-right text-red-500 font-bold w-1/4"
-										>
-											$0
-										</p>
-									</div>
-									<div class="flex justify-between py-4">
-										<p class="font-semibold w-2/5">
-											Categoría con mayor balance
-										</p>
-										<p class="w-1/4 font-semibold text-right">
-											<span id="catMoreBalance" class="bg-[#F9A826] p-1 rounded"
-												>Categoria</span
-											>
-										</p>
-										<p
-											id="amountMoreBalance"
-											class="text-right w-1/4 font-bold"
-										>
-											$0
-										</p>
-									</div>
-									<div class="flex justify-between py-4">
-										<p class="font-semibold w-2/5">Mes con mayor Ganancia</p>
-										<p
-											id="monthMoreGain"
-											class="text-right w-1/4 font-semibold"
-										>
-											Mes con mayor ganancia
-										</p>
-										<p
-											id="monthAmountMoreGain"
-											class="text-right text-green-500 font-semibold w-1/4"
-										>
-											$
-										</p>
-									</div>
-									<div class="flex justify-between t py-4">
-										<p class="font-semibold w-2/5">Mes con mayor gasto</p>
-										<p
-											id="monthMinorGain"
-											class="text-right w-1/4 font-semibold"
-										>
-											Mes con mayor Gasto
-										</p>
-										<p
-											id="montAmountMinorGain"
-											class="text-right text-red-500 font-bold w-1/4"
-										>
-											$
-										</p>
-									</div>
-								</div>
-							</div>
-							<div id="totalsByCategories" class="py-4">
-								<div class="py-8">
-									<h3 class="text-2xl font-black">Totales por categorías</h3>
-								</div>
-								<div class="flex justify-between">
-									<div class="w-full">
-										<div class="flex justify-between font-black py-4">
-											<h4 class="text-center w-1/4">Categoria</h4>
-											<h4 class="text-center w-1/4">Ganancia</h4>
-											<h4 class="text-center w-1/4">Gastos</h4>
-											<h4 class="text-center w-1/4">Balance</h4>
-										</div>
-										<div id="contCategory" class="flex flex-col"></div>
-									</div>
-								</div>
-							</div>
-							<div id="totalsByMonth" class="py-4">
-								<div class="py-8">
-									<h3 class="text-2xl font-black">Totales por mes</h3>
-								</div>
-								<div class="flex justify-between">
-									<div class="w-full">
-										<div class="flex justify-between font-black py-4">
-											<h4 class="text-center w-1/4">Mes</h4>
-											<h4 class="text-center w-1/4">Ganancia</h4>
-											<h4 class="text-center w-1/4">Gastos</h4>
-											<h4 class="text-center w-1/4">Balance</h4>
-										</div>
-										<div id="contDates" class="flex flex-col"></div>
-									</div>
-								</div>
-							</div>
+					<!-- section reports img -->
+					<div class="imageReportes hidden" id="imageReports">
+						<div class="p-2 sm:p-10 flex flex-col items-center w-full">
+							<img
+								src="assets/image/pig-noreports.svg"
+								alt=""
+								class="w-full sm:w-1/2"
+							/>
+							<h4 class="mb-2 text-xl sm:text-2xl font-semibold text-center">
+								Operaciones insuficientes
+							</h4>
+							<p class="lg:w-1/2 w-3/4 mt-2 text-center">
+								Prueba agregando más operaciones
+							</p>
 						</div>
 					</div>
-				</section>
-			</div>
+
+				<!-- section table reports -->
+<!-- section table reports -->
+<div class="overflow-x-auto mb:p-12" id="tableReports">
+    <div class="w-full">
+        <h3 class="summary pt-4 pb-4 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]">
+            Resumen
+        </h3>
+        <table class="w-full mt-2">
+            <thead class="text-lg font-light"></thead>
+            <tbody class="tableReports" id="tableSummaryReports"></tbody>
+        </table>
+    </div>
+
+    <div class="w-full">
+        <h3 class="pt-8 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]">
+            Totales por categorías
+        </h3>
+        <table class="w-full border-separate pt-4">
+            <thead class="text-lg font-light">
+                <tr class="textCategory text-lg">
+                    <th>Categoria</th>
+                    <th>Ganancias</th>
+                    <th>Gastos</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody class="tableCategory text-gray-800" id="categoryTableReports"></tbody>
+        </table>
+    </div>
+
+    <div class="w-full ">
+        <h3 class="pt-4 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]">
+            Totales por mes
+        </h3>
+        <table class="w-full border-separate pt-4">
+            <thead class="text-lg font-light">
+                <tr class="textMounth text-lg">
+                    <th>Mes</th>
+                    <th>Ganancias</th>
+                    <th>Gastos</th>
+                    <th>Balance</th>
+                </tr>
+            </thead>
+            <tbody class="text-gray-800" id="tableMonthReports"></tbody>
+        </table>
+    </div>
+</div>
 		</main>
 		<script
 			src="https://kit.fontawesome.com/04baa38fa8.js"
@@ -605,4 +558,3 @@
 		<!-- CIERRE DE SCRIPTS DE OPERACIONES, CATEGORIAS Y REPORTES -->
 	</body>
 </html>
-
