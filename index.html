@@ -3,11 +3,12 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="icon" href="assets/image/pig-financial.png" type="image/png" />
 		<script src="https://cdn.tailwindcss.com"></script>
 		<!-- SCRIPT DE GENERADOR DE ID -->
 		<script src="https://unpkg.com/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/tempo.js@2.0.0/dist/tempo.min.js"></script>
-		<title>AhorrAdas</title>
+		<title>AhorrApp</title>
 	</head>
 	<body class="bg-gray-100">
 		<header>
@@ -21,7 +22,7 @@
 							alt="Logo alcancía de cerdito"
 							class="h-16"
 						/>
-						AhorrADAs
+						AhorrApp
 					</h1>
 				</div>
 
@@ -171,7 +172,7 @@
 					</div>
 				</section>
 			</div>
-			<section
+			<div
 				id="section-operations"
 				class="bg-white w-80 md:w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full"
 			>
@@ -179,21 +180,22 @@
 				<div class="flex items-center justify-between">
 					<h3 class="text-2xl font-semibold py-4">Operaciones</h3>
 					<button
-						id="newOperation--link"
-						class="btn text-gray-800 py-2 px-8 font-medium rounded-xl bg-green-300 hover:border-4 border-transparent hover:border-green-600 hover:bg-white"
-					>
-						+ Nueva operación
-					</button>
+    id="newOperation--link"
+    class="btn text-gray-800 md:py-2 px-4 ml-4 md:ml-0 md:py-2 md:px-4 font-medium text-sm md:text-base mr-2 bg-green-300 hover:border-4 border-transparent hover:border-green-600 hover:bg-white rounded"
+>
+    + Nueva operación
+</button>
+
 				</div>
 				<!--agregue div/tablas que peramence ocultas y luego al agregar operacion aparecen-->
 
-				<div class="flex justify-around pb-5 hidden" id="div-ops">
-					<div class="column">Descripción</div>
-					<div class="column">Categoría</div>
-					<div class="column">Fecha</div>
-					<div class="column">Monto</div>
-					<div class="column">Acciones</div>
-				</div>
+				<div class="flex justify-around my-4 hidden" id="div-ops">
+                    <div class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826] ">Descripción</div>
+                    <div class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]">Categoría</div>
+                    <div class="column hidden md:block underline underline-offset-4 decoration-[#F9A826]">Fecha</div>
+                    <div class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]">Monto</div>
+                    <div class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]">Acciones</div>
+                </div>
 				<div id="operations" class="hidden"></div>
 
 				<!--Imagen que aparece si no hay operacion, y desaparece cuando hay-->
@@ -208,78 +210,45 @@
 						Cambia los filtros o agrega operaciones
 					</p>
 				</div>
-			</section>
-			<!--Modal EditOperation-->
-			<div
-				id="editModal"
-				class="hidden bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400"
-			>
-				<h2 class="text-3xl font-semibold py-4">Editar operación</h2>
-				<form id="edit-operation-form">
-					<label for="new__description--edit" class="font-semibold"
-						>Descripción</label
-					>
-					<input
-						type="text"
-						id="new__description--edit"
-						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
-					/>
-
-					<label for="new__rate--edit" class="font-semibold">Monto</label>
-					<input
-						type="number"
-						id="new__rate--edit"
-						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
-					/>
-
-					<label for="new__type--edit" class="font-semibold">Tipo</label>
-					<select
-						id="new__type--edit"
-						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
-					>
-						<option value="Gasto">Gasto</option>
-						<option value="Ganancia" selected>Ganancia</option>
-					</select>
-
-					<label for="new__categorie--edit" class="font-semibold"
-						>Categoría</label
-					>
-					<select
-						id="new__categorie--edit"
-						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
-					>
-						<option value="Todas" selected>Todas</option>
-						<option value="Comida">Comida</option>
-						<option value="Servicios">Servicios</option>
-						<option value="Salidas">Salidas</option>
-						<option value="Educación">Educación</option>
-						<option value="Transporte">Transporte</option>
-						<option value="Trabajo">Trabajo</option>
-					</select>
-
-					<label for="new__date--edit" class="font-semibold">Fecha</label>
-					<input
-						type="date"
-						id="new__date--edit"
-						class="border-solid border-black border w-full rounded h-10 mt-2 mb-4"
-					/>
-
-					<div class="py-8 flex justify-end gap-1 pr-1">
-						<button
-							class="w-3/12 bg-green-300 rounded h-10 shadow-xl"
-							id="close-modal-edit"
-						>
-							Cancelar
-						</button>
-						<button
-							class="w-3/12 bg-green-300 rounded h-10 shadow-xl"
-							id="save-edited-operation-button"
-						>
-							Editar
-						</button>
-					</div>
-				</form>
 			</div>
+			<!--Modal EditOperation-->
+			         
+	<div id="editModal" class="hidden bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400">
+    <h2 class="text-3xl font-semibold py-4">Editar operación</h2>
+    <form id="edit-operation-form">
+        <label for="new__description--edit" class="font-semibold">Descripción</label>
+        <input type="text" id="new__description--edit" class="bg-white border border-black py-2 px-8 rounded w-full mb-4"/>
+
+        <label for="new__rate--edit" class="font-semibold">Monto</label>
+        <input type="number" id="new__rate--edit" class="bg-white border border-black py-2 px-8 rounded w-full mb-4"/>
+
+        <label for="new__type--edit" class="font-semibold">Tipo</label>
+        <select id="new__type--edit" class="bg-white border border-black py-2 px-8 rounded w-full mb-4">
+            <option value="Gasto">Gasto</option>
+            <option value="Ganancia" selected>Ganancia</option>
+        </select>
+
+        <label for="new__categorie--edit" class="font-semibold">Categoría</label>
+        <select id="new__categorie--edit" class="bg-white border border-black py-2 px-8 rounded w-full mb-4">
+            <option value="Todas" selected>Todas</option>
+            <option value="Comida">Comida</option>
+            <option value="Servicios">Servicios</option>
+            <option value="Salidas">Salidas</option>
+            <option value="Educación">Educación</option>
+            <option value="Transporte">Transporte</option>
+            <option value="Trabajo">Trabajo</option>
+        </select>
+
+        <label for="new__date--edit" class="font-semibold">Fecha</label>
+        <input type="date" id="new__date--edit" class="border-solid border-black border w-full rounded h-10 mt-2 mb-4"/>
+
+        <div class="py-8 flex justify-center md:justify-end gap-1 pr-1">
+            <button class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl" id="close-modal-edit">Cancelar</button>
+            <button class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl" id="save-edited-operation-button" type="submit">Editar</button>
+        </div>
+    </form>
+</div>
+
 
 			<!--Modal de Eliminar-->
 			<div
@@ -366,7 +335,7 @@
 
 					<div class="py-8 flex justify-end gap-1 pr-1">
 						<button
-							class="w-3/12 bg-green-300 rounded h-10 shadow-xl"
+							class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl"
 							id="newOperation-hidden"
 						>
 							Cancelar
@@ -374,7 +343,7 @@
 						<button
 							type="submit"
 							id="add-operation"
-							class="w-3/12 bg-green-300 rounded h-10 shadow-xl"
+							class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl"
 						>
 							Agregar
 						</button>
@@ -544,6 +513,8 @@
             <tbody class="text-gray-800" id="tableMonthReports"></tbody>
         </table>
     </div>
+</div>
+</section>
 </div>
 		</main>
 		<script
