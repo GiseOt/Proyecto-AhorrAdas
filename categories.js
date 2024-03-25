@@ -23,6 +23,10 @@ const defaultCategories = [
 		id: uuidv4(),
 		categoryName: "Salidas",
 	},
+	{
+		id: uuidv4(),
+		categoryName: "Transporte",
+	},
 ];
 
 //function to initialize program categories
@@ -273,21 +277,6 @@ const updateOperationsWithCategories = (newCategoryName) => {
 		}
 	});
 };
-
-const categoriesAddInput = document.getElementById("categoriesAdd__input");
-
-categoriesAddInput.addEventListener("change", () => {
-	const newCategoryName = categoriesAddInput.value.trim();
-	if (newCategoryName) {
-		const newCategory = { id: uuidv4(), categoryName: newCategoryName };
-		let categories = JSON.parse(localStorage.getItem("categories")) || [];
-		categories.push(newCategory);
-		localStorage.setItem("categories", JSON.stringify(categories));
-		updateCategories();
-		updateOperationsWithCategories(newCategoryName);
-		categoriesAddInput.value = "";
-	}
-});
 
 updateCategories();
 
