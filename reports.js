@@ -572,8 +572,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //-----------FUNCION ORDENAR POR FILTROS --------//
 
-const newDate = (sort) => {
-	const date = new Date(sort.calendar);
+const newDate = (operation) => {
+	const date = new Date(operation.date);
 	return date.getTime();
 };
 
@@ -582,14 +582,13 @@ const FiltersResult = () => {
 	const selectedValue = document.getElementById("filter-order").value;
 
 	if (selectedValue === "MAS_RECIENTE") {
-		let operation = operationsData.sort((a, b) => newDate(b) - newDate(a));
-
-		return generateTable(operation);
+		operationsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+		return generateTable(operationsData);
 	}
 
 	if (selectedValue === "MENOS_RECIENTE") {
-		const operation = operationsData.sort((a, b) => newDate(a) - newDate(b));
-		return generateTable(operation);
+		operationsData.sort((a, b) => new Date(a.date) - new Date(b.date));
+		return generateTable(operationsData);
 	}
 
 	if (selectedValue === "MAYOR_MONTO") {
@@ -630,3 +629,20 @@ const FiltersResult = () => {
 document
 	.getElementById("filter-order")
 	.addEventListener("change", FiltersResult);
+
+/////
+const showFiltersButton = document.getElementById("show-filters");
+const hideFiltersButton = document.getElementById("hide-filters");
+const filtersSection = document.getElementById("filter-hidden");
+
+hideFiltersButton.addEventListener("click", () => {
+	filtersSection.classList.add("hidden");
+	hideFiltersButton.classList.add("hidden");
+	showFiltersButton.classList.remove("hidden");
+});
+
+showFiltersButton.addEventListener("click", () => {
+	filtersSection.classList.remove("hidden");
+	showFiltersButton.classList.add("hidden");
+	hideFiltersButton.classList.remove("hidden");
+});
