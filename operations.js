@@ -22,6 +22,14 @@ const convertDate = (date) => {
 	return newdate;
 };
 
+
+//************************* Unformat Date************************ */
+const convertDateBack = (date) => {
+	let dateArray = date.split("/");
+	let newDate = dateArray[2] + "-" + dateArray[1] + "-" + dateArray[0];
+	return newDate;
+};
+
 //************************* Local Storage ********************************************************** */
 
 let savedOperations = JSON.parse(localStorage.getItem("operations")) || [];
@@ -100,7 +108,8 @@ const showModalEdit = (operationId) => {
 		rateEdit.value = operation.amount;
 		typeEdit.value = operation.type;
 		categoryEdit.value = operation.category;
-		dateEdit.value = operation.date;
+		dateEdit.value = convertDateBack(operation.date);
+		
 
 		// Botón de "Editar"
 		const saveButton = document.getElementById("save-edited-operation-button");
@@ -201,12 +210,12 @@ const generateTable = (operations = savedOperations) => {
 			const amountSign = operation.type == "Ganancia" ? "+$" : "-$";
 			operationsTable.innerHTML += `
 <div class="flex justify-around pb-3 text-center items-center">
-    <div class="mt-9 min-w-[150px]"><span>${operation.description}</span></div>
-    <div class="mt-9 min-w-[100px] bg-orange-100 text-orange-400 rounded-lg "><span>${operation.category}</span></div>
-    <div class="mt-9 min-w-[100px]"><span>${operation.date}</span></div>
-    <div class="mt-9 ${amountType} min-w-[100px]"><span>${amountSign}${operation.amount}</span></div>
-    <div class="mt-9 flex gap-6">
-        <button class="edit-operation-link" id="edit-${operation.id}"><img src="./assets/image/edit.svg" alt="Piggy bank icon"  class="h-6"/></button>
+    <div class="mt-9 w-1/5 md:w-auto md:min-w-[150px] overflow-auto text-base md:text-xl"><span>${operation.description}</span></div>
+    <div class="mt-9 md:min-w-[100px] bg-orange-100 text-orange-400 rounded-lg text-base md:text-xl"><span>${operation.category}</span></div>
+    <div class="mt-9 md:min-w-[100px] hidden md:block text-base md:text-xl"><span>${operation.date}</span></div>
+    <div class="mt-9 ${amountType} md:min-w-[100px] text-base md:text-xl"><span>${amountSign}${operation.amount}</span></div>
+    <div class="mt-9 flex gap-2 md:gap-6">
+        <button class="edit-operation-link" id="edit-${operation.id}"><img src="./assets/image/edit.svg" alt="Piggy bank icon" class="h-6"/></button>
         <button class="delete-operation" id="delete-${operation.id}"><img src="./assets/image/delete.svg" alt="delete" class="h-6"/></button> 
     </div>
 </div>
@@ -334,9 +343,21 @@ document.addEventListener("DOMContentLoaded", function () {
 		PanelOperations.classList.remove("hidden");
 	};
 
+	const openCategoriesBtn = document.getElementById("openCategories");
+	const openReportsBtn = document.getElementById("openReports");
+
+	openCategoriesBtn.addEventListener("click", () => {
+		hideNewOperation();
+		
+	});
+
+	openReportsBtn.addEventListener("click", () => {
+		hideNewOperation();
+		
+	});
+
 	btnCloseNewOperation.addEventListener("click", hideNewOperation);
 });
-
 /********************* Section Filter***************************** */
 /**Filter by Type**/
 const selectedType = document.getElementById("filterType");
