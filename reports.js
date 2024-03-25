@@ -545,6 +545,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		panelOperations.classList.remove("hidden");
 		containerReports.classList.add("hidden");
 		containerCategories.classList.add("hidden");
+		toggleMenu();
 	};
 
 	const showCategories = () => {
@@ -552,6 +553,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		panelOperations.classList.add("hidden");
 		containerReports.classList.add("hidden");
 		containerCategories.classList.remove("hidden");
+		toggleMenu();
 	};
 
 	const showReports = () => {
@@ -560,6 +562,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		containerReports.classList.remove("hidden");
 		containerCategories.classList.add("hidden");
 		emptyOperations();
+		toggleMenu();
 	};
 
 	btnBalances.addEventListener("click", showBalances);
@@ -578,6 +581,17 @@ const FiltersResult = () => {
 	const operationsData = JSON.parse(localStorage.getItem("operations")) || [];
 	const selectedValue = document.getElementById("filter-order").value;
 
+	if (selectedValue === "MAS_RECIENTE") {
+		let operation = operationsData.sort((a, b) => newDate(b) - newDate(a));
+
+		return generateTable(operation);
+	}
+
+	if (selectedValue === "MENOS_RECIENTE") {
+		const operation = operationsData.sort((a, b) => newDate(a) - newDate(b));
+		return generateTable(operation);
+	}
+
 	if (selectedValue === "MAYOR_MONTO") {
 		let operation = operationsData.sort((a, b) => b.amount - a.amount);
 		return generateTable(operation);
@@ -587,7 +601,32 @@ const FiltersResult = () => {
 		let operation = operationsData.sort((a, b) => a.amount - b.amount);
 		return generateTable(operation);
 	}
+
+	if (selectedValue === "A/Z") {
+		const operation = operationsData.sort((a, b) => {
+			if (a.description < b.description) {
+				return -1;
+			} else if (a.description > b.description) {
+			} else {
+				return 0;
+			}
+		});
+		return generateTable(operation);
+	}
+
+	if (selectedValue === "Z/A") {
+		const operation = operationsData.sort((a, b) => {
+			if (a.description > b.description) {
+				return -1;
+			} else if (a.description < b.description) {
+			} else {
+				return 0;
+			}
+		});
+		return generateTable(operation);
+	}
 };
+
 document
 	.getElementById("filter-order")
 	.addEventListener("change", FiltersResult);
