@@ -9,7 +9,6 @@ console.log(operationsData);
 
 //----------------------REPORTS / NAV SECTION DESKTOP --------------------
 
-//REVISAR QUE FUNCIONE CUANDO SE PISE CON EL DE TRI
 document.addEventListener("DOMContentLoaded", function () {
 	const openReportsBtn = document.getElementById("openReports");
 	const panelBalanceandFilter = document.getElementById(
@@ -17,6 +16,9 @@ document.addEventListener("DOMContentLoaded", function () {
 	);
 	const panelOperations = document.getElementById("section-operations");
 	const containerReports = document.getElementById("btn-reports");
+	const containerEditCategories = document.getElementById(
+		"categoriesEdit__box"
+	);
 
 	const openCategoriesBtn = document.getElementById("openCategories");
 	const containerCategories = document.getElementById("categoriesAdd__box");
@@ -26,6 +28,7 @@ document.addEventListener("DOMContentLoaded", function () {
 		panelBalanceandFilter.classList.add("hidden");
 		panelOperations.classList.add("hidden");
 		containerCategories.classList.add("hidden");
+		containerEditCategories.classList.add("hidden");
 		emptyOperations();
 	};
 
