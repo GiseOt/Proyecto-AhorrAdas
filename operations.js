@@ -1,4 +1,4 @@
-// Seleccionar elementos del Html (dom)
+// Selecting Html elements (dom)
 const description = document.getElementById("new__description");
 const amount = document.getElementById("new__rate");
 const type = document.getElementById("new__type");
@@ -9,8 +9,8 @@ const expenses = document.getElementById("balance-expenses");
 const earnings = document.getElementById("balance-earnings");
 const balanceTotal = document.getElementById("balance-total");
 const divNewOperation = document.getElementById("createOperation");
-const PanelBalanceandFilter = document.getElementById("balance--filtro__panel"); //desaparece al hacer click
-const PanelOperations = document.getElementById("section-operations"); //desaparece al hacer click
+const PanelBalanceandFilter = document.getElementById("balance--filtro__panel"); //disappears when clicked
+const PanelOperations = document.getElementById("section-operations"); //disappears when clicked
 
 /****************************** Date ****************************************** */
 
@@ -21,7 +21,6 @@ const convertDate = (date) => {
 	let newdate = dateArray[2] + "/" + dateArray[1] + "/" + dateArray[0];
 	return newdate;
 };
-
 
 //************************* Unformat Date************************ */
 const convertDateBack = (date) => {
@@ -34,7 +33,7 @@ const convertDateBack = (date) => {
 
 let savedOperations = JSON.parse(localStorage.getItem("operations")) || [];
 
-// Función para evaluar si hay operaciones guardadas en el localStorage
+// Function to evaluate if there are operations saved in the localStorage
 const evaluateLocalStorage = () => {
 	if (localStorage.getItem("operations") !== null) {
 		savedOperations = JSON.parse(localStorage.getItem("operations"));
@@ -46,37 +45,37 @@ const evaluateLocalStorage = () => {
 
 //*********************Edit Operation****ʕ•́ᴥ•̀ʔっ************************//
 
-// Busca la operación que esta guardada en savedOperations //identifica mi operacion a traves del id
+// Finds the operation saved in savedOperations //identifies my operation through the id
 const findOperationById = (operationId) => {
 	return savedOperations.find((op) => op.id === operationId);
 };
 
 /*/******************************************************************* */
 const editEvent = () => {
-	const editButtons = document.querySelectorAll(".edit-operation-link"); // Obtener todos los botones de edición (lapiz)
+	const editButtons = document.querySelectorAll(".edit-operation-link"); // / Get all edit buttons (pencil)
 
 	editButtons.forEach((button) => {
 		button.addEventListener("click", () => {
-			const operationId = button.id.slice(5); // click en cada boton + id de la operación
+			const operationId = button.id.slice(5); // click on each button + operation id
 			console.log("Este es mi ID:", operationId); //
-			showModalEdit(operationId); //Activa mi modal al hacer click
+			showModalEdit(operationId); //Activates my modal on click
 		});
 	});
 };
-//Función para guardar mi edición
+// Function to save my edition
 const saveEditedOperation = (operationId) => {
-	// Encuentra la operación correspondiente por su ID
+	// Finds the corresponding operation by its ID
 	const operation = savedOperations.find((op) => op.id === operationId);
 	if (operation) {
-		// Actualiza la operación por la editada // mis input de edicion . value
+		// Update the operation with the edited one // my edition inputs . value
 		operation.description = descriptionEdit.value;
 		operation.amount = rateEdit.value;
 		operation.type = typeEdit.value;
 		operation.category = categoryEdit.value;
 		operation.date = convertDate(dateEdit.value);
-		console.log("Operación editada guardada con éxito. ID:", operationId);
+		
 
-		// Guardar cambios en el almacenamiento local
+		// Save changes to Local Storage
 		localStorage.setItem("operations", JSON.stringify(savedOperations));
 		generateTable();
 		displayOperations();
@@ -92,7 +91,7 @@ const typeEdit = document.getElementById("new__type--edit");
 const categoryEdit = document.getElementById("new__categorie--edit");
 const dateEdit = document.getElementById("new__date--edit");
 
-//Muestro mi modal
+//Show my modal
 const showModalEdit = (operationId) => {
 	const editModal = document.getElementById("editModal");
 	editModal.classList.add("block");
@@ -103,52 +102,51 @@ const showModalEdit = (operationId) => {
 	const operation = findOperationById(operationId);
 
 	if (operation) {
-		// Llena los campos de edición con los detalles de la operación
+		//  Fill edit fields with operation details
 		descriptionEdit.value = operation.description;
 		rateEdit.value = operation.amount;
 		typeEdit.value = operation.type;
 		categoryEdit.value = operation.category;
 		dateEdit.value = convertDateBack(operation.date);
-		
 
-		// Botón de "Editar"
+		// Edit button
 		const saveButton = document.getElementById("save-edited-operation-button");
-		// Agregar un evento de clic al botón de guardar
-		saveButton.dataset.operationId = operationId; // Agregamos el ID de la operación al botón de guardar
+		// Add click event to save button
+		saveButton.dataset.operationId = operationId; //// Add operation ID to save button
 	} else {
 		console.log("Operación no encontrada");
 	}
 };
 
-// Evento de mi botón de editar
+// Edit button event
 document
 	.getElementById("save-edited-operation-button")
 	.addEventListener("click", (e) => {
 		e.preventDefault();
-		// Obtener el ID de la operación
+		// Get operation ID
 		const operationId = e.target.dataset.operationId;
-		// Llamar a la función para guardar la operación editada
+		// Call function to save edited operation
 		saveEditedOperation(operationId);
-		// Ocultar la modal después de guardar
+		// Hide modal after saving
 		const editModal = document.getElementById("editModal");
 		editModal.classList.add("hidden");
-		// Mostrar los paneles de balance y filtro, y la tabla de operaciones
+		//Show balance and filter panels, and operations table
 		PanelBalanceandFilter.classList.remove("hidden");
 		PanelOperations.classList.remove("hidden");
-		// Generar la tabla y mostrar las operaciones
+		// //Show balance and filter panels, and operations table
 		generateTable();
 		displayOperations();
 	});
 
-// Botón de cerrar modal
+// Close modal button
 const closeButtonModal = document.getElementById("close-modal-edit");
 closeButtonModal.addEventListener("click", () => {
 	const editModal = document.getElementById("editModal");
-	editModal.classList.add("hidden"); // Ocultar la modal
-	// Mostrar los paneles de balance y filtro, y la tabla de operaciones
+	editModal.classList.add("hidden"); // Hide modal
+	// //Show balance and filter panels, and operations table
 	PanelBalanceandFilter.classList.remove("hidden");
 	PanelOperations.classList.remove("hidden");
-	// Generar la tabla y mostrar las operaciones
+	// //Show balance and filter panels, and operations table
 	generateTable();
 	displayOperations();
 });
@@ -161,13 +159,12 @@ const deleteEvent = () => {
 	deleteButtons.forEach((button) => {
 		button.addEventListener("click", () => {
 			const operationIdDelete = button.id.slice(7);
-			console.log("soy el id DELETE", operationIdDelete);
-			showModalDelete(operationIdDelete); // Llamar a la función showModalDelete con el ID de la operación a eliminar
+			showModalDelete(operationIdDelete); // Call showModalDelete function with the ID of the operation to delete
 		});
 	});
 };
 
-// () Muestra la modal de eliminación con el ID de la operación a eliminar
+// () Shows delete modal with ID of the operation to delete
 const showModalDelete = (operationIdDelete) => {
 	const deleteModal = document.getElementById("delete-modal-confirmation");
 	deleteModal.classList.add("block");
@@ -176,13 +173,13 @@ const showModalDelete = (operationIdDelete) => {
 	const cancelButton = document.getElementById("cancel-Button");
 	const deleteButton = document.getElementById("delete-Button");
 
-	// Agregar event listener al botón "Cancelar"
+	// // Add event listener to "Cancel" button
 	cancelButton.addEventListener("click", () => {
 		deleteModal.classList.remove("block");
 		deleteModal.classList.add("hidden");
 	});
 
-	// Agregar event listener al botón "Eliminar"
+	// // Add event listener to "Delete" button
 	deleteButton.addEventListener("click", () => {
 		savedOperations = savedOperations.filter(
 			(operation) => operation.id !== operationIdDelete
@@ -198,7 +195,7 @@ const showModalDelete = (operationIdDelete) => {
 
 /*********************** Generate Operations Table ******************* */
 
-// Genero la tabla
+// Generate the table
 const generateTable = (operations = savedOperations) => {
 	const operationsTable = document.getElementById("operations");
 	if (!operationsTable) return;
@@ -227,7 +224,7 @@ const generateTable = (operations = savedOperations) => {
 	editEvent();
 };
 
-// llamo a mi función para evaluar el localStorage
+// Call my function to evaluate Local Storage
 evaluateLocalStorage();
 
 /************************ Button to Add Table ***********************/
@@ -252,7 +249,7 @@ if (addButton) {
 
 // ************************Hidden Operations/Image*****************/
 
-// Ocultar o mostrar la tabla de operaciones según  operaciones guardadas
+// Hide or show operations table based on saved operations
 const displayOperations = () => {
 	const operationsElement = document.getElementById("operations");
 	const divOpsElement = document.getElementById("div-ops");
@@ -270,7 +267,7 @@ const displayOperations = () => {
 	}
 };
 
-// Llamar a displayOperations al cargar el DOM
+// Call displayOperations when DOM loaded
 document.addEventListener("DOMContentLoaded", displayOperations);
 
 /*********************** Section Balance******************* */
@@ -306,7 +303,7 @@ calculateBalance();
 
 /********************************Show New Operation**************************** */
 
-//Botones
+//Buttons
 const btnOpenNewOperation = document.getElementById("newOperation--link");
 const btnCloseNewOperation = document.getElementById("newOperation-hidden");
 const cancelNewOperation = document.getElementById("cancelnweOperation");
@@ -322,14 +319,14 @@ document.addEventListener("DOMContentLoaded", function () {
 	//const cancelNewOperation = document.getElementById("cancelnweOperation");
 
 	const showNewOperation = () => {
-		// Limpiar los campos de entrada
+		// Clear input fields
 		description.value = "";
 		amount.value = "";
 		type.value = "";
 		category.value = "";
 		date.value = "";
 
-		// Mostrar la sección de nueva operación
+		// Show new operation section
 		divNewOperation.classList.remove("hidden");
 		PanelBalanceandFilter.classList.add("hidden");
 		PanelOperations.classList.add("hidden");
@@ -348,17 +345,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	openCategoriesBtn.addEventListener("click", () => {
 		hideNewOperation();
-		
 	});
 
 	openReportsBtn.addEventListener("click", () => {
 		hideNewOperation();
-		
 	});
 
 	btnCloseNewOperation.addEventListener("click", hideNewOperation);
 });
 /********************* Section Filter***************************** */
+
 /**Filter by Type**/
 const selectedType = document.getElementById("filterType");
 
@@ -366,7 +362,7 @@ const filterType = (operationType) => {
 	let filteredOperations;
 
 	if (operationType === "Todos") {
-		filteredOperations = savedOperations; // Mostrar todas las operaciones sin filtrar
+		filteredOperations = savedOperations; // Show all operations unfiltered
 	} else {
 		filteredOperations = savedOperations.filter(
 			(operacion) => operacion.type === operationType
@@ -380,17 +376,15 @@ selectedType.addEventListener("change", (e) => {
 	filterType(e.target.value);
 });
 
-
-
 /** Filtered Date **/
 
 const inputDate = document.getElementById("InputDate");
 
 const filterDateFrom = (selectedDate) => {
-	// Fecha parseada
+	// Parsed date
 	const formattedDate = convertDate(selectedDate);
 
-	// Hasta la más reciente
+	// Up to the most recent
 	const filteredDate = savedOperations.filter(
 		(operacion) => operacion.date >= formattedDate
 	);
