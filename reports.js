@@ -66,7 +66,7 @@ const emptyOperations = () => {
 	}
 };
 
-//--------FUNCTION WHERE EXPENSES AND PROFITS OPERATIONS ARE GENERATED AND ACCUMULATED---------
+//------FUNCTION WHERE EXPENSES AND PROFITS OPERATIONS ARE GENERATED AND ACCUMULATED---------
 
 const typeSpeOperations = () => {
 	const spendingOperations = [];
