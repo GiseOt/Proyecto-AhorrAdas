@@ -1,11 +1,9 @@
 const $ = (selector) => document.querySelector(selector);
 const $$ = (selector) => document.querySelectorAll(selector);
 
-// ----------------OBTENER DATOS DE LS ---------------
+// ---------------- LS ---------------
 
 let operationsData = JSON.parse(localStorage.getItem("operations")) || [];
-console.log(operationsData);
-//operationsData contiene los datos almacenados en el localStorage bajo la clave "operations"
 
 //----------------------REPORTS / NAV SECTION DESKTOP --------------------
 
@@ -19,7 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
 	const containerEditCategories = document.getElementById(
 		"categoriesEdit__box"
 	);
-
 	const openCategoriesBtn = document.getElementById("openCategories");
 	const containerCategories = document.getElementById("categoriesAdd__box");
 
@@ -44,7 +41,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	openCategoriesBtn.addEventListener("click", showCategories);
 });
 
-//--------------FUNCIONES CUANDO NO HAY REPORTES Y CUANDO SI HAY --------
+//--------------FUNCTIONS EMPTY AND FULL REPORTS --------
 
 const showEmptyReports = () => {
 	document.getElementById("tableReports").classList.add("hidden");
@@ -56,8 +53,7 @@ const showFullReports = () => {
 	document.getElementById("imageReports").classList.add("hidden");
 };
 
-//-----FUNCION PARA OBTENER INFO DE OPERACIONES CON LS Y FUNCIONES PROXIMAS A UTILIZAR --
-// DEBE QUEDAR EN 1? SI SOLO HAY UNA OPERACION NO SE MUESTRA EN REPORTES?
+//-----GET INFO LS
 const emptyOperations = () => {
 	const operationsData = JSON.parse(localStorage.getItem("operations")) || [];
 	if (operationsData.length <= 1) {
@@ -70,7 +66,7 @@ const emptyOperations = () => {
 	}
 };
 
-//--------FUNCION DONDE SE GENERAN Y ACUMULAN OPERACIONES DE GASTO Y GANANCIA---------
+//--------FUNCTION WHERE EXPENSES AND PROFITS OPERATIONS ARE GENERATED AND ACCUMULATED---------
 
 const typeSpeOperations = () => {
 	const spendingOperations = [];
@@ -96,7 +92,7 @@ const typeEarOperations = () => {
 	return earningsOperations;
 };
 
-// ---------------- FUNCION CATEGORIA CON MAYOR GANANCIA ------/
+// ---------------- FUNCTION CATEGORY WITH HIGHEST PROFIT ------/
 
 const biggerEarnings = () => {
 	const operationsData = JSON.parse(localStorage.getItem("operations")) || [];
@@ -133,8 +129,6 @@ const biggerEarnings = () => {
 	return maxCategory;
 };
 
-console.log(biggerEarnings, "soy Mayores Ganancias");
-
 const biggerEarningsAmount = (category) => {
 	const operationsData = JSON.parse(localStorage.getItem("operations")) || [];
 	const operationsInCategory = operationsData.filter(
@@ -142,7 +136,7 @@ const biggerEarningsAmount = (category) => {
 			operation.category === category && operation.type === "Ganancia"
 	);
 	if (operationsInCategory.length === 0) {
-		return 0; // Devolver 0 si no hay operaciones en la categoría
+		return 0;
 	}
 	const maxAmount = Math.max(
 		...operationsInCategory.map((operation) => parseInt(operation.amount))
@@ -150,7 +144,7 @@ const biggerEarningsAmount = (category) => {
 	return maxAmount;
 };
 
-// ----------------FUNCION CATEGORIA CON MAYOR GASTO--------------------/
+// ----------------FUNCTION CATEGORY WITH HIGHEST EXPENSE--------------------/
 
 const biggerSpent = () => {
 	const operationsData = JSON.parse(localStorage.getItem("operations")) || [];
@@ -191,7 +185,7 @@ const biggerSpentAmount = () => {
 	return maxAmount;
 };
 
-//---------- MES CON MAYOR BALANCE Y FUNCION PARA NOMBRE DE CADA MES----------/
+//---------- MONTH WITH HIGHEST BALANCE AND FUNCTION TO OBTAIN THE NAME OF EACH MONTH----------/
 const monthNames = {
 	1: "Enero",
 	2: "Febrero",
@@ -250,7 +244,7 @@ const biggerBalanceAmount = () => {
 	return maxBalance;
 };
 
-// -------------- MES CON MAYOR GANANCIA  -----------------/
+// -------------- MONTH WITH HIGHEST PROFIT  -----------------/
 
 const biggerDate = () => {
 	const operationsData = JSON.parse(localStorage.getItem("operations")) || [];
@@ -302,7 +296,7 @@ const biggerDateAmount = () => {
 	return maxAmount;
 };
 
-// //----------------MES CON MAYOR GASTO----------------/
+// //----------------MONTH WITH HIGHEST EXPENSE----------------/
 
 const biggerDateSpending = () => {
 	const spendingOperations = typeSpeOperations();
@@ -350,7 +344,7 @@ const biggerDateSpendingAmount = () => {
 	return maxAmount;
 };
 
-//-------------------TABLA RESUMEN-----------------
+//-------------------TABLE RESUMEN-----------------
 const generateReportsTable = () => {
 	const categoryWithMaxEarnings = biggerEarnings();
 	const arrayEarningsAmountReport = biggerEarningsAmount(
@@ -367,7 +361,6 @@ const generateReportsTable = () => {
 
 	const tableSummaryReports = document.getElementById("tableSummaryReports");
 
-	// Convertir los arrays en cadenas o tomar solo el primer elemento si es necesario
 	const balanceReportText = Array.isArray(arrayBalanceReports)
 		? arrayBalanceReports.join(", ")
 		: arrayBalanceReports;
@@ -407,7 +400,7 @@ const generateReportsTable = () => {
 };
 generateReportsTable();
 
-//-------------------- TOTALES POR CATEGORIA-----------------
+//-------------------- TOTALS BY CATEGORY-----------------
 
 const totalsByCategory = () => {
 	const operationsData = JSON.parse(localStorage.getItem("operations")) || [];
@@ -431,28 +424,24 @@ const totalsByCategory = () => {
 		acc[operation.category] = group;
 		return acc;
 	}, {});
-	console.log(totales, "totales por categoria");
 	return Object.values(totales);
 };
 
-//------TABLA TOTALES POR CATEGORIA------------------
+//------TABLE TOTALS BY CATEGORY------------------
 
 const reportsGenerateTable = () => {
 	const reportesPorCategoria = totalsByCategory();
 	const tableBody = document.getElementById("categoryTableReports");
 
-	// Limpiar contenido existente de la tabla
 	tableBody.innerHTML = "";
 
-	// Verificar si hay datos para mostrar
 	if (reportesPorCategoria.length === 0) {
 		const row = document.createElement("tr");
 		row.innerHTML = "<td colspan='4'>No hay datos disponibles</td>";
 		tableBody.appendChild(row);
-		return; // Salir de la función si no hay datos
+		return;
 	}
 
-	// Generar filas de la tabla
 	reportesPorCategoria.forEach((reporte) => {
 		const { category, spending, gain, balance } = reporte;
 		const row = document.createElement("tr");
@@ -471,7 +460,7 @@ const reportsGenerateTable = () => {
 	});
 };
 
-//-------------TOTALES POR MES---------------------
+//-------------TOTAL BY MONTH ---------------------
 const obtenerTotalesPorMes = () => {
 	const operationsData = JSON.parse(localStorage.getItem("operations")) || [];
 
@@ -521,7 +510,7 @@ const reportsDateGenerateTable = () => {
 };
 reportsDateGenerateTable();
 
-//----------------MENU HAMBURGUESA----------
+//----------------MENU RESPONSIVE----------
 
 document.addEventListener("DOMContentLoaded", function () {
 	const toggleMenu = () => {
@@ -573,7 +562,7 @@ document.addEventListener("DOMContentLoaded", function () {
 	btnReports.addEventListener("click", showReports);
 });
 
-//-----------FUNCION ORDENAR POR FILTROS --------//
+//-----------FUNCTION ORDER BY FILTERS --------//
 
 const newDate = (operation) => {
 	const date = new Date(operation.date);
