@@ -73,7 +73,6 @@ const saveEditedOperation = (operationId) => {
 		operation.type = typeEdit.value;
 		operation.category = categoryEdit.value;
 		operation.date = convertDate(dateEdit.value);
-		
 
 		// Save changes to Local Storage
 		localStorage.setItem("operations", JSON.stringify(savedOperations));
@@ -330,6 +329,8 @@ document.addEventListener("DOMContentLoaded", function () {
 		divNewOperation.classList.remove("hidden");
 		PanelBalanceandFilter.classList.add("hidden");
 		PanelOperations.classList.add("hidden");
+
+		updateCategories();
 	};
 
 	btnOpenNewOperation.addEventListener("click", showNewOperation);

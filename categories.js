@@ -75,6 +75,7 @@ const saveEditCategory = (categoryId) => {
 		loadCategories(savedCategories);
 	} else {
 	}
+	categoriesHTML();
 };
 
 // event click for edit button (pencil)
@@ -97,6 +98,9 @@ const modalCategory__edit = (categoryId) => {
 	categoriesAdd__box.classList.add("hidden");
 	const category = findCategoryById(categoryId);
 	if (category) {
+		const categoriesEdit__input = document.getElementById(
+			"categoriesEdit__input"
+		);
 		categoriesEdit__input.value = category.categoryName;
 		const editCategory__btn = document.getElementById("editCategory");
 		editCategory__btn.addEventListener("click", (e) => {
@@ -154,6 +158,7 @@ const showModalDelete__cat = (categoryIdBin) => {
 		deleteModal.classList.remove("block");
 		deleteModal.classList.add("hidden");
 		loadCategories(savedCategories);
+		categoriesHTML();
 	});
 };
 
@@ -176,12 +181,9 @@ document.addEventListener("DOMContentLoaded", () => {
 				loadCategories(savedCategories);
 				categoryNameInput.value = "";
 			}
+			categoriesHTML();
 		});
 	}
-
-	// Llama a las funciones editPencilBtn__event() y deleteBinBtn__event()
-	editPencilBtn__event();
-	deleteBinBtn__event();
 });
 // Function to generate the HTML of a category
 
