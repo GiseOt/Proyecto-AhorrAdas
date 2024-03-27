@@ -226,12 +226,14 @@ const openCategories__btn = document.getElementById("openCategories");
 const panelBalanceandFilter = document.getElementById("balance--filtro__panel");
 const panelOperations = document.getElementById("section-operations");
 const containerCategories = document.getElementById("categoriesAdd__box");
+const edit_modal = document.getElementById("editModal");
 
 document.addEventListener("DOMContentLoaded", function () {
 	const showCategories = () => {
 		containerCategories.classList.remove("hidden");
 		panelBalanceandFilter.classList.add("hidden");
 		panelOperations.classList.add("hidden");
+		edit_modal.classList.add("hidden");
 	};
 
 	openCategories__btn.addEventListener("click", showCategories);
