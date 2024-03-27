@@ -181,26 +181,45 @@
 				id="section-operations"
 				class="bg-white w-80 md:w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full"
 			>
-					<!--OPERACIONES-->
+				<!--OPERACIONES-->
 				<div class="flex items-center justify-between">
 					<h3 class="text-2xl font-semibold py-4">Operaciones</h3>
 					<button
-    id="newOperation--link"
-    class="btn text-gray-800 md:py-2 px-4 ml-4 md:ml-0 md:py-2 md:px-4 font-medium text-sm md:text-base mr-2 bg-green-300 hover:border-4 border-transparent hover:border-green-600 hover:bg-white rounded"
->
-    + Nueva operación
-</button>
-
+						id="newOperation--link"
+						class="btn text-gray-800 md:py-2 px-4 ml-4 md:ml-0 md:py-2 md:px-4 font-medium text-sm md:text-base mr-2 bg-green-300 hover:border-4 border-transparent hover:border-green-600 hover:bg-white rounded"
+					>
+						+ Nueva operación
+					</button>
 				</div>
 				<!--agregue div/tablas que peramence ocultas y luego al agregar operacion aparecen-->
 
 				<div class="flex justify-around my-4 hidden" id="div-ops">
-                    <div class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826] ">Descripción</div>
-                    <div class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]">Categoría</div>
-                    <div class="column hidden md:block underline underline-offset-4 decoration-[#F9A826]">Fecha</div>
-                    <div class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]">Monto</div>
-                    <div class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]">Acciones</div>
-                </div>
+					<div
+						class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]"
+					>
+						Descripción
+					</div>
+					<div
+						class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]"
+					>
+						Categoría
+					</div>
+					<div
+						class="column hidden md:block underline underline-offset-4 decoration-[#F9A826]"
+					>
+						Fecha
+					</div>
+					<div
+						class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]"
+					>
+						Monto
+					</div>
+					<div
+						class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]"
+					>
+						Acciones
+					</div>
+				</div>
 				<div id="operations" class="hidden"></div>
 
 				<!--Imagen que aparece si no hay operacion, y desaparece cuando hay-->
@@ -216,8 +235,8 @@
 					</p>
 				</div>
 			</div>
-<!-- NEW OPERATION-->
-			
+			<!-- NEW OPERATION-->
+
 			<div
 				id="createOperation"
 				class="bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400 hidden"
@@ -231,7 +250,7 @@
 						type="text"
 						id="new__description"
 						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
-                        required
+						required
 					/>
 
 					<label for="new__rate" class="font-semibold">Monto</label>
@@ -239,14 +258,13 @@
 						type="number"
 						id="new__rate"
 						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
-                        required
+						required
 					/>
 
 					<label for="new__type" class="font-semibold">Tipo</label>
 					<select
 						id="new__type"
 						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
-                    
 					>
 						<option value="Gasto">Gasto</option>
 						<option value="Ganancia" selected>Ganancia</option>
@@ -256,7 +274,6 @@
 					<select
 						id="new__categorie"
 						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
-                        
 					>
 						<option value="Todas" selected>Todas</option>
 						<option value="Comida">Comida</option>
@@ -272,7 +289,7 @@
 						type="date"
 						id="new__date"
 						class="border-solid border-black border w-full rounded h-10 mt-2 mb-4"
-                        required
+						required
 					/>
 
 					<div class="py-8 flex justify-end gap-1 pr-1">
@@ -293,45 +310,79 @@
 				</form>
 			</div>
 
+			<!-- EDIT OPERATION-->
 
-	<!-- EDIT OPERATION-->
-			         
-	<div id="editModal" class="hidden bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400">
-    <h2 class="text-3xl font-semibold py-4">Editar operación</h2>
-    <form id="edit-operation-form">
-        <label for="new__description--edit" class="font-semibold">Descripción</label>
-        <input type="text" id="new__description--edit" class="bg-white border border-black py-2 px-8 rounded w-full mb-4"/>
+			<div
+				id="editModal"
+				class="hidden bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400"
+			>
+				<h2 class="text-3xl font-semibold py-4">Editar operación</h2>
+				<form id="edit-operation-form">
+					<label for="new__description--edit" class="font-semibold"
+						>Descripción</label
+					>
+					<input
+						type="text"
+						id="new__description--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+					/>
 
-        <label for="new__rate--edit" class="font-semibold">Monto</label>
-        <input type="number" id="new__rate--edit" class="bg-white border border-black py-2 px-8 rounded w-full mb-4"/>
+					<label for="new__rate--edit" class="font-semibold">Monto</label>
+					<input
+						type="number"
+						id="new__rate--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+					/>
 
-        <label for="new__type--edit" class="font-semibold">Tipo</label>
-        <select id="new__type--edit" class="bg-white border border-black py-2 px-8 rounded w-full mb-4">
-            <option value="Gasto">Gasto</option>
-            <option value="Ganancia" selected>Ganancia</option>
-        </select>
+					<label for="new__type--edit" class="font-semibold">Tipo</label>
+					<select
+						id="new__type--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+					>
+						<option value="Gasto">Gasto</option>
+						<option value="Ganancia" selected>Ganancia</option>
+					</select>
 
-        <label for="new__categorie--edit" class="font-semibold">Categoría</label>
-        <select id="new__categorie--edit" class="bg-white border border-black py-2 px-8 rounded w-full mb-4">
-            <option value="Todas" selected>Todas</option>
-            <option value="Comida">Comida</option>
-            <option value="Servicios">Servicios</option>
-            <option value="Salidas">Salidas</option>
-            <option value="Educación">Educación</option>
-            <option value="Transporte">Transporte</option>
-            <option value="Trabajo">Trabajo</option>
-        </select>
+					<label for="new__categorie--edit" class="font-semibold"
+						>Categoría</label
+					>
+					<select
+						id="new__categorie--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+					>
+						<option value="Todas" selected>Todas</option>
+						<option value="Comida">Comida</option>
+						<option value="Servicios">Servicios</option>
+						<option value="Salidas">Salidas</option>
+						<option value="Educación">Educación</option>
+						<option value="Transporte">Transporte</option>
+						<option value="Trabajo">Trabajo</option>
+					</select>
 
-        <label for="new__date--edit" class="font-semibold">Fecha</label>
-        <input type="date" id="new__date--edit" class="border-solid border-black border w-full rounded h-10 mt-2 mb-4"/>
+					<label for="new__date--edit" class="font-semibold">Fecha</label>
+					<input
+						type="date"
+						id="new__date--edit"
+						class="border-solid border-black border w-full rounded h-10 mt-2 mb-4"
+					/>
 
-        <div class="py-8 flex justify-center md:justify-end gap-1 pr-1">
-            <button class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl" id="close-modal-edit">Cancelar</button>
-            <button class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl" id="save-edited-operation-button" type="submit">Editar</button>
-        </div>
-    </form>
-</div>
-
+					<div class="py-8 flex justify-center md:justify-end gap-1 pr-1">
+						<button
+							class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl"
+							id="close-modal-edit"
+						>
+							Cancelar
+						</button>
+						<button
+							class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl"
+							id="save-edited-operation-button"
+							type="submit"
+						>
+							Editar
+						</button>
+					</div>
+				</form>
+			</div>
 
 			<!--Modal de delete-->
 			<div
@@ -361,7 +412,7 @@
 					</div>
 				</div>
 			</div>
-			
+
 			<!-- </div> -->
 
 			<!-- CATEGORIES-->
@@ -422,7 +473,7 @@
 			>
 				<div class="bg-white p-8 rounded shadow-md mx-3">
 					<div class="mb-4">
-						<h2 class="text-xl font-semibold text-gray-800 ">Advertencia</h2>
+						<h2 class="text-xl font-semibold text-gray-800">Advertencia</h2>
 						<p class="text-gray-600">
 							¿Estás seguro de que deseas eliminar este elemento?
 						</p>
@@ -451,14 +502,10 @@
 			</button> -->
 
 			<!--REPORTS-->
-			<div
-				class="hidden flex justify-center pt-0 bg-gray-100"
-				id="btn-reports"
-			>
-			<section
-            class="bg-white rounded drop-shadow-2xl border-2 border-[#F9A826] shadow-gray-400 2xl:w-full xl:w-full lg:w-full w-full lg:ml-6 lg:mt-0 mx-2 p-5 h-fit mb-6"
-            >
-
+			<div class="hidden flex justify-center pt-0 bg-gray-100" id="btn-reports">
+				<section
+					class="bg-white rounded drop-shadow-2xl border-2 border-[#F9A826] shadow-gray-400 2xl:w-full xl:w-full lg:w-full w-full lg:ml-6 lg:mt-0 mx-2 p-5 h-fit mb-6"
+				>
 					<h2 class="pb-5 lg:text-4xl text-3xl font-semibold">Reportes</h2>
 
 					<!-- section reports img -->
@@ -478,60 +525,71 @@
 						</div>
 					</div>
 
-				<!-- section table reports -->
-<!-- section table reports -->
-<div class="overflow-x-auto mb:p-12" id="tableReports">
-    <div class="w-full">
-        <h3 class="summary pt-4 pb-4 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]">
-            Resumen
-        </h3>
-        <table class="w-full mt-2">
-            <thead class="text-lg font-light"></thead>
-            <tbody class="tableReports" id="tableSummaryReports"></tbody>
-        </table>
-    </div>
+					<!-- section table reports -->
+					<!-- section table reports -->
+					<div class="overflow-x-auto mb:p-12" id="tableReports">
+						<div class="w-full">
+							<h3
+								class="summary pt-4 pb-4 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]"
+							>
+								Resumen
+							</h3>
+							<table class="w-full mt-2">
+								<thead class="text-lg font-light"></thead>
+								<tbody class="tableReports" id="tableSummaryReports"></tbody>
+							</table>
+						</div>
 
-    <div class="w-full">
-        <h3 class="pt-8 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]">
-            Totales por categorías
-        </h3>
-        <table class="w-full border-separate pt-4">
-            <thead class="text-lg font-light">
-                <tr class="textCategory text-lg">
-                    <th>Categoria</th>
-                    <th>Ganancias</th>
-                    <th>Gastos</th>
-                    <th>Balance</th>
-                </tr>
-            </thead>
-            <tbody class="tableCategory text-gray-800" id="categoryTableReports"></tbody>
-        </table>
-    </div>
+						<div class="w-full">
+							<h3
+								class="pt-8 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]"
+							>
+								Totales por categorías
+							</h3>
+							<table class="w-full border-separate pt-4">
+								<thead class="text-lg font-light">
+									<tr class="textCategory text-lg">
+										<th>Categoria</th>
+										<th>Ganancias</th>
+										<th>Gastos</th>
+										<th>Balance</th>
+									</tr>
+								</thead>
+								<tbody
+									class="tableCategory text-gray-800"
+									id="categoryTableReports"
+								></tbody>
+							</table>
+						</div>
 
-    <div class="w-full ">
-        <h3 class="pt-4 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]">
-            Totales por mes
-        </h3>
-        <table class="w-full border-separate pt-4">
-            <thead class="text-lg font-light">
-                <tr class="textMounth text-lg">
-                    <th>Mes</th>
-                    <th>Ganancias</th>
-                    <th>Gastos</th>
-                    <th>Balance</th>
-                </tr>
-            </thead>
-            <tbody class="text-gray-800" id="tableMonthReports"></tbody>
-        </table>
-    </div>
-</div>
-</section>
-</div>
+						<div class="w-full">
+							<h3
+								class="pt-4 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]"
+							>
+								Totales por mes
+							</h3>
+							<table class="w-full border-separate pt-4">
+								<thead class="text-lg font-light">
+									<tr class="textMounth text-lg">
+										<th>Mes</th>
+										<th>Ganancias</th>
+										<th>Gastos</th>
+										<th>Balance</th>
+									</tr>
+								</thead>
+								<tbody class="text-gray-800" id="tableMonthReports"></tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+			</div>
 		</main>
- <footer class="w-full bg-orange-400 text-white py-2 mt-10">
-    <p class="text-sm md:text-base text-center">Copyright © 2024 </p>
-    <p  class="text-xs md:text-base text-center">Gisella Ortiz de la Tabla - Tamara Ordoqui - Trinidad Lari</p>
-   </footer>
+		<footer class="w-full bg-orange-400 text-white py-2 mt-10">
+			<p class="text-sm md:text-base text-center">Copyright © 2024</p>
+			<p class="text-xs md:text-base text-center">
+				Gisella Ortiz de la Tabla - Tamara Ordoqui - Trinidad Lari
+			</p>
+		</footer>
 		<script
 			src="https://kit.fontawesome.com/04baa38fa8.js"
 			crossorigin="anonymous"
@@ -543,5 +601,4 @@
 
 		<!-- CIERRE DE SCRIPTS DE OPERACIONES, CATEGORIAS Y REPORTES -->
 	</body>
-   
 </html>
