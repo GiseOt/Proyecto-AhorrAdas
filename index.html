@@ -1,13 +1,580 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AhorrADAS</title>
-</head>
-<body>
-    
-</body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" href="assets/image/pig-financial.png" type="image/png" />
+		<script src="https://cdn.tailwindcss.com"></script>
+		<!-- SCRIPT DE GENERADOR DE ID -->
+		<script src="https://unpkg.com/uuid@8.3.2/dist/umd/uuidv4.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/tempo.js@2.0.0/dist/tempo.min.js"></script>
+		<title>AhorrApp</title>
+	</head>
+	<body class="bg-gray-100 font-serif">
+		<header>
+			<nav
+				class="py-3 bg-orange-400 text-white flex justify-between items-center md:justify-between md:items-baseline shadow-xl"
+			>
+				<div>
+					<h1 class="text-4xl md:text-5xl flex items-end pl-8">
+						<img
+							src="./assets/image/pig-bank.svg"
+							alt="Logo alcancía de cerdito"
+							class="h-16"
+						/>
+						AhorrApp
+					</h1>
+				</div>
+
+				<!-- RESPONSIVE MENU -->
+				<div class="lg:hidden pr-8 relative z-20">
+					<button id="btn-menu-burger" class="text-2xl">
+						<i class="fa-solid fa-bars"></i>
+					</button>
+					<ul
+						id="mobile-menu"
+						class="hidden absolute border border-white-300 shadow-md rounded-md right-1 mt-3 bg-orange-400 p-2"
+					>
+						<li id="btn-balances-burger" class="py-2 pl-4">
+							<a href="#index.html" class="text-2xl flex items-center"
+								><i class="fa-solid fa-chart-line mr-2"></i>Balance</a
+							>
+						</li>
+						<li id="btn-categories-burger" class="py-2 pl-4">
+							<a href="#openCategories" class="text-2xl flex items-center"
+								><i class="fa-solid fa-tag mr-2"></i>Categorías</a
+							>
+						</li>
+						<li id="btn-reports-burger" class="py-2 pl-4">
+							<a href="#openReports" class="text-2xl flex items-center"
+								><i class="fa-solid fa-chart-pie mr-2"></i>Reportes</a
+							>
+						</li>
+					</ul>
+				</div>
+				<!-- MENU DESKTOP  -->
+				<div class="hidden md:flex md:gap-16 md:pr-8 text-xl">
+					<a
+						href="index.html"
+						class="text-f hover:bg-[#F6CC64] hover:rounded-lg"
+						><i class="fa-solid fa-arrow-trend-up pr-1"></i>Balance</a
+					>
+					<button
+						type="button"
+						id="openCategories"
+						class="hover:bg-[#F6CC64] hover:rounded-lg"
+					>
+						<i class="fa-solid fa-tag pr-1 text-white"></i>Categorías
+					</button>
+					<button
+						type="button"
+						id="openReports"
+						class="hover:bg-[#F6CC64] hover:rounded-lg"
+					>
+						<i class="fa-solid fa-file-invoice-dollar pr-1 text-white"></i>
+						Reportes
+					</button>
+				</div>
+			</nav>
+		</header>
+		<main
+			id="main"
+			class="px-12 flex flex-col items-center md:flex-row md:justify-center md:items-start mt-9 md:gap-14 text-xl pt-16 md:min-h-screen"
+		>
+			<!--MAIN -->
+			<div class="flex flex-col gap-10" id="balance--filtro__panel">
+				<section
+					id="section-balance"
+					class="bg-white w-80 h-80 flex flex-col gap-14 px-7 rounded-xl shadow-xl"
+				>
+					<!--BALANCE-->
+					<h2 class="text-2xl mt-4">Balance</h2>
+					<div class="flex flex-col gap-10">
+						<div class="flex justify-between">
+							<p class="text-green-600">Ganancias</p>
+							<span class="text-green-600 font-semibold" id="balance-earnings"
+								>+0</span
+							>
+						</div>
+						<div class="flex justify-between">
+							<p class="text-red-600">Gastos</p>
+							<span class="text-red-600 font-semibold" id="balance-expenses"
+								>+0</span
+							>
+						</div>
+						<div class="flex justify-between">
+							<p>Total</p>
+							<span class="font-semibold" id="balance-total">+0</span>
+						</div>
+					</div>
+				</section>
+				<section
+					id="section-filter"
+					class="bg-white px-7 rounded-xl flex flex-col gap-14 mb-24 shadow-xl"
+				>
+					<!--FILTERS-->
+					<div class="flex gap-10 mt-6">
+						<h2 class="text-2xl">Filtros</h2>
+						<button type="button" id="hide-filters" class="text-cyan-600">
+							Ocultar Filtros
+						</button>
+						<button id="show-filters" class="text-cyan-600 hidden mb-6">
+							Mostrar Filtros
+						</button>
+					</div>
+					<div class="flex flex-col gap-5" id="filter-hidden">
+						<div>
+							<h4>Tipo</h4>
+							<select
+								id="filterType"
+								class="bg-white border border-black py-2 px-8 rounded w-4/5"
+							>
+								<option value="Todos">Todos</option>
+								<option value="Gasto">Gasto</option>
+								<option value="Ganancia">Ganancia</option>
+							</select>
+						</div>
+						<div>
+							<h4>Categoría</h4>
+							<select
+								id="category__filter"
+								class="bg-white border border-black py-2 px-8 rounded w-4/5"
+							>
+								<option value="Todas" selected>Todas</option>
+								<option value="Comida">Comida</option>
+								<option value="Servicios">Servicios</option>
+								<option value="Salidas">Salidas</option>
+								<option value="Educación">Educación</option>
+								<option value="Transporte">Transporte</option>
+								<option value="Trabajo">Trabajo</option>
+							</select>
+						</div>
+						<div>
+							<h4>Desde</h4>
+							<input
+								type="date"
+								name="fecha"
+								id="InputDate"
+								class="bg-white border border-black py-2 px-8 rounded w-4/5"
+							/>
+						</div>
+						<div class="pb-8">
+							<h4>Ordenar por</h4>
+							<select
+								id="filter-order"
+								class="bg-white border border-black py-2 px-8 rounded w-4/5"
+							>
+								<option value="MAS_RECIENTE" selected>Más reciente</option>
+								<option value="MENOS_RECIENTE">Menos reciente</option>
+								<option value="MAYOR_MONTO">Mayor monto</option>
+								<option value="MENOR_MONTO">Menor monto</option>
+								<option value="A/Z">A/Z</option>
+								<option value="Z/A">Z/A</option>
+							</select>
+						</div>
+					</div>
+				</section>
+			</div>
+			<div
+				id="section-operations"
+				class="bg-white w-80 md:w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full"
+			>
+				<!--OPERATIONS-->
+				<div class="flex items-center justify-between">
+					<h3 class="text-2xl font-semibold py-4">Operaciones</h3>
+					<button
+						id="newOperation--link"
+						class="btn text-gray-800 md:py-2 px-4 ml-4 md:ml-0 md:py-2 md:px-4 font-medium text-sm md:text-base mr-2 bg-green-300 hover:border-4 border-transparent hover:border-green-600 hover:bg-white rounded"
+					>
+						+ Nueva operación
+					</button>
+				</div>
+				<div class="flex justify-around my-4 hidden" id="div-ops">
+					<div
+						class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]"
+					>
+						Descripción
+					</div>
+					<div
+						class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]"
+					>
+						Categoría
+					</div>
+					<div
+						class="column hidden md:block underline underline-offset-4 decoration-[#F9A826]"
+					>
+						Fecha
+					</div>
+					<div
+						class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]"
+					>
+						Monto
+					</div>
+					<div
+						class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]"
+					>
+						Acciones
+					</div>
+				</div>
+				<div id="operations" class="hidden"></div>
+				<div id="without-operations" class="hidden">
+					<img
+						class="mx-auto py-8"
+						src="./assets/image/pig-financial.png"
+						alt="Logo llenando la alcancía"
+					/>
+					<h6 class="text-center py-4 text-xl font-semibold">Sin resultados</h6>
+					<p class="text-center text-sm pb-5">
+						Cambia los filtros o agrega operaciones
+					</p>
+				</div>
+			</div>
+			<!-- NEW OPERATION-->
+			<div
+				id="createOperation"
+				class="bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400 hidden"
+			>
+				<h2 class="text-3xl font-semibold py-4">Nueva operación</h2>
+				<form id="new-operation-form">
+					<label for="new__description" class="font-semibold"
+						>Descripción</label
+					>
+					<input
+						type="text"
+						id="new__description"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+						required
+					/>
+
+					<label for="new__rate" class="font-semibold">Monto</label>
+					<input
+						type="number"
+						id="new__rate"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+						required
+					/>
+
+					<label for="new__type" class="font-semibold">Tipo</label>
+					<select
+						id="new__type"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+					>
+						<option value="Gasto">Gasto</option>
+						<option value="Ganancia" selected>Ganancia</option>
+					</select>
+
+					<label for="new__categorie" class="font-semibold">Categoría</label>
+					<select
+						id="new__categorie"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+					>
+						<option value="Todas" selected>Todas</option>
+						<option value="Comida">Comida</option>
+						<option value="Servicios">Servicios</option>
+						<option value="Salidas">Salidas</option>
+						<option value="Educación">Educación</option>
+						<option value="Transporte">Transporte</option>
+						<option value="Trabajo">Trabajo</option>
+					</select>
+
+					<label for="new__date" class="font-semibold">Fecha</label>
+					<input
+						type="date"
+						id="new__date"
+						class="border-solid border-black border w-full rounded h-10 mt-2 mb-4"
+						required
+					/>
+
+					<div class="py-8 flex justify-end gap-1 pr-1">
+						<button
+							class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl"
+							id="newOperation-hidden"
+						>
+							Cancelar
+						</button>
+						<button
+							type="submit"
+							id="add-operation"
+							class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl"
+						>
+							Agregar
+						</button>
+					</div>
+				</form>
+			</div>
+			<!-- EDIT OPERATION-->
+			<div
+				id="editModal"
+				class="hidden bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400"
+			>
+				<h2 class="text-3xl font-semibold py-4">Editar operación</h2>
+				<form id="edit-operation-form">
+					<label for="new__description--edit" class="font-semibold"
+						>Descripción</label
+					>
+					<input
+						type="text"
+						id="new__description--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+					/>
+
+					<label for="new__rate--edit" class="font-semibold">Monto</label>
+					<input
+						type="number"
+						id="new__rate--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+					/>
+
+					<label for="new__type--edit" class="font-semibold">Tipo</label>
+					<select
+						id="new__type--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+					>
+						<option value="Gasto">Gasto</option>
+						<option value="Ganancia" selected>Ganancia</option>
+					</select>
+
+					<label for="new__categorie--edit" class="font-semibold"
+						>Categoría</label
+					>
+					<select
+						id="new__categorie--edit"
+						class="bg-white border border-black py-2 px-8 rounded w-full mb-4"
+					>
+						<option value="Todas" selected>Todas</option>
+						<option value="Comida">Comida</option>
+						<option value="Servicios">Servicios</option>
+						<option value="Salidas">Salidas</option>
+						<option value="Educación">Educación</option>
+						<option value="Transporte">Transporte</option>
+						<option value="Trabajo">Trabajo</option>
+					</select>
+
+					<label for="new__date--edit" class="font-semibold">Fecha</label>
+					<input
+						type="date"
+						id="new__date--edit"
+						class="border-solid border-black border w-full rounded h-10 mt-2 mb-4"
+					/>
+
+					<div class="py-8 flex justify-center md:justify-end gap-1 pr-1">
+						<button
+							class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl"
+							id="close-modal-edit"
+						>
+							Cancelar
+						</button>
+						<button
+							class="w-24 md:w-3/12 bg-green-300 rounded h-10 shadow-xl"
+							id="save-edited-operation-button"
+							type="submit"
+						>
+							Editar
+						</button>
+					</div>
+				</form>
+			</div>
+			<!--Modal de delete-->
+			<div
+				id="delete-modal-confirmation"
+				class="hidden fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex justify-center items-center"
+			>
+				<div class="bg-white p-8 rounded shadow-md mx-3">
+					<div class="mb-4">
+						<h2 class="text-xl font-semibold text-gray-800">Advertencia</h2>
+						<p class="text-gray-600">
+							¿Estás seguro de que deseas eliminar este elemento?
+						</p>
+					</div>
+					<div class="flex justify-end">
+						<button
+							id="cancel-Button"
+							class="mr-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded"
+						>
+							Cancelar
+						</button>
+						<button
+							id="delete-Button"
+							class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+						>
+							Eliminar
+						</button>
+					</div>
+				</div>
+			</div>
+			<!-- CATEGORIES-->
+			<div
+				id="categoriesAdd__box"
+				class="categoriesAdd__box bg-white w-80 md:w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full hidden"
+			>
+				<h2 class="text-3xl font-semibold py-4">Categorías</h2>
+				<label for="categoriesAdd__input" class="font-medium text-lg"
+					>Nombre</label
+				>
+				<div class="categoriesAdd pt-2.5 pb-12">
+					<input
+						type="text"
+						id="categoriesAdd__input"
+						class="border-solid border-black border w-11/12 md:w-9/12 rounded h-10 pl-4"
+					/>
+					<button
+						id="categoriesAdd__button"
+						class="categoriesAdd__button ml-2 w-8/12 md:w-2/12 bg-green-300 rounded h-10 shadow-xl mt-6 hover:border-4 border-transparent hover:border-green-600 hover:bg-white"
+					>
+						Agregar
+					</button>
+				</div>
+				<div id="categories__body"></div>
+			</div>
+			<div
+				id="categoriesEdit__box"
+				class="categoriesEdit__box hidden bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400"
+			>
+				<h2 class="text-3xl font-semibold py-4 mt-20">Editar categoría</h2>
+				<label for="categoriesEdit__input">Nombre</label>
+				<input
+					type="text"
+					id="categoriesEdit__input"
+					class="border-solid border-black border w-23/24 rounded h-10 mt-6 pl-4"
+					value=""
+				/>
+				<div class="categoriesEdit__buttons py-8 flex justify-end gap-1 pr-1">
+					<button
+						id="closeEditCategory__btn"
+						class="w-6/12 md:w-3/12 bg-green-300 rounded h-10 shadow-xl"
+					>
+						Cancelar
+					</button>
+					<button
+						id="editCategory"
+						class="w-6/12 md:w-3/12 bg-green-300 rounded h-10 shadow-xl"
+					>
+						Editar
+					</button>
+				</div>
+			</div>
+			<div
+				id="modalDelete__cat"
+				class="fixed inset-0 z-50 overflow-auto bg-gray-900 bg-opacity-50 flex justify-center items-center hidden"
+			>
+				<div class="bg-white p-8 rounded shadow-md mx-3">
+					<div class="mb-4">
+						<h2 class="text-xl font-semibold text-gray-800">Advertencia</h2>
+						<p class="text-gray-600">
+							¿Estás seguro de que deseas eliminar este elemento?
+						</p>
+					</div>
+					<div class="flex justify-end">
+						<button
+							id="cancelButton"
+							class="mr-2 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white rounded"
+						>
+							Cancelar
+						</button>
+						<button
+							id="deleteButton"
+							class="px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded"
+						>
+							Eliminar
+						</button>
+					</div>
+				</div>
+			</div>
+			<!--REPORTS-->
+			<div class="hidden flex justify-center pt-0 bg-gray-100" id="btn-reports">
+				<section
+					class="bg-white rounded drop-shadow-2xl border-2 border-[#F9A826] shadow-gray-400 2xl:w-full xl:w-full lg:w-full w-full lg:ml-6 lg:mt-0 mx-2 p-5 h-fit"
+				>
+					<h2 class="pb-5 lg:text-4xl text-3xl font-semibold">Reportes</h2>
+
+					<!--REPORTS IMG -->
+					<div class="imageReportes hidden" id="imageReports">
+						<div class="p-2 sm:p-10 flex flex-col items-center w-full">
+							<img
+								src="assets/image/pig-noreports.svg"
+								alt=""
+								class="w-full sm:w-1/2"
+							/>
+							<h4 class="mb-2 text-xl sm:text-2xl font-semibold text-center">
+								Operaciones insuficientes
+							</h4>
+							<p class="lg:w-1/2 w-3/4 mt-2 text-center">
+								Prueba agregando más operaciones
+							</p>
+						</div>
+					</div>
+					<!-- SECTION REPORTS RESUME -->
+					<div class="overflow-x-auto mb:p-12" id="tableReports">
+						<div class="w-full">
+							<h3
+								class="summary pt-4 pb-4 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]"
+							>
+								Resumen
+							</h3>
+							<table class="w-full mt-2">
+								<thead class="text-lg font-light"></thead>
+								<tbody class="tableReports" id="tableSummaryReports"></tbody>
+							</table>
+						</div>
+
+						<div class="w-full">
+							<h3
+								class="pt-8 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]"
+							>
+								Totales por categorías
+							</h3>
+							<table class="w-full border-separate pt-4">
+								<thead class="text-lg font-light">
+									<tr class="textCategory text-lg">
+										<th>Categoria</th>
+										<th>Ganancias</th>
+										<th>Gastos</th>
+										<th>Balance</th>
+									</tr>
+								</thead>
+								<tbody
+									class="tableCategory text-gray-800"
+									id="categoryTableReports"
+								></tbody>
+							</table>
+						</div>
+
+						<div class="w-full">
+							<h3
+								class="pt-4 text-2xl font-semibold underline underline-offset-4 decoration-[#F9A826]"
+							>
+								Totales por mes
+							</h3>
+							<table class="w-full border-separate pt-4">
+								<thead class="text-lg font-light">
+									<tr class="textMounth text-lg">
+										<th>Mes</th>
+										<th>Ganancias</th>
+										<th>Gastos</th>
+										<th>Balance</th>
+									</tr>
+								</thead>
+								<tbody class="text-gray-800" id="tableMonthReports"></tbody>
+							</table>
+						</div>
+					</div>
+				</section>
+			</div>
+		</main>
+		<footer class="w-full bg-orange-400 text-white py-2 mt-10">
+			<p class="text-sm md:text-base text-center">Copyright © 2024</p>
+			<p class="text-xs md:text-base text-center">
+				Gisella Ortiz de la Tabla - Tamara Ordoqui - Trinidad Lari
+			</p>
+		</footer>
+		<script
+			src="https://kit.fontawesome.com/04baa38fa8.js"
+			crossorigin="anonymous"
+		></script>
+		<!-- JS-->
+		<script src="operations.js"></script>
+		<script src="categories.js"></script>
+		<script src="reports.js"></script>
+		<!--END -->
+	</body>
 </html>
-
-
