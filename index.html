@@ -26,7 +26,7 @@
 					</h1>
 				</div>
 
-				<!-- MENÚ HAMBURGUESA -->
+				<!-- RESPONSIVE MENU -->
 				<div class="lg:hidden pr-8 relative z-20">
 					<button id="btn-menu-burger" class="text-2xl">
 						<i class="fa-solid fa-bars"></i>
@@ -52,9 +52,8 @@
 						</li>
 					</ul>
 				</div>
-				<!-- MENU NAVEGACION DESKTOP  -->
+				<!-- MENU DESKTOP  -->
 				<div class="hidden md:flex md:gap-16 md:pr-8 text-xl">
-					<!--MENU NAVEGACION-->
 					<a
 						href="index.html"
 						class="text-f hover:bg-[#F6CC64] hover:rounded-lg"
@@ -80,11 +79,10 @@
 		</header>
 		<main
 			id="main"
-			class="px-12 flex flex-col items-center md:flex-row md:justify-center md:items-start mt-9 gap-14 text-xl pt-16"
+			class="px-12 flex flex-col items-center md:flex-row md:justify-center md:items-start mt-9 md:gap-14 text-xl pt-16 md:min-h-screen"
 		>
-			<!--MAIN : CAJAS DE BALANCE, FILTROS Y OPERACIONES-->
+			<!--MAIN -->
 			<div class="flex flex-col gap-10" id="balance--filtro__panel">
-				<!--div para poder hacer el display flex con OPERACIONES-->
 				<section
 					id="section-balance"
 					class="bg-white w-80 h-80 flex flex-col gap-14 px-7 rounded-xl shadow-xl"
@@ -114,7 +112,7 @@
 					id="section-filter"
 					class="bg-white px-7 rounded-xl flex flex-col gap-14 mb-24 shadow-xl"
 				>
-					<!--FILTROS-->
+					<!--FILTERS-->
 					<div class="flex gap-10 mt-6">
 						<h2 class="text-2xl">Filtros</h2>
 						<button type="button" id="hide-filters" class="text-cyan-600">
@@ -181,7 +179,7 @@
 				id="section-operations"
 				class="bg-white w-80 md:w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full"
 			>
-				<!--OPERACIONES-->
+				<!--OPERATIONS-->
 				<div class="flex items-center justify-between">
 					<h3 class="text-2xl font-semibold py-4">Operaciones</h3>
 					<button
@@ -191,8 +189,6 @@
 						+ Nueva operación
 					</button>
 				</div>
-				<!--agregue div/tablas que peramence ocultas y luego al agregar operacion aparecen-->
-
 				<div class="flex justify-around my-4 hidden" id="div-ops">
 					<div
 						class="column text-sm md:text-xl underline underline-offset-4 decoration-[#F9A826]"
@@ -221,8 +217,6 @@
 					</div>
 				</div>
 				<div id="operations" class="hidden"></div>
-
-				<!--Imagen que aparece si no hay operacion, y desaparece cuando hay-->
 				<div id="without-operations" class="hidden">
 					<img
 						class="mx-auto py-8"
@@ -236,7 +230,6 @@
 				</div>
 			</div>
 			<!-- NEW OPERATION-->
-
 			<div
 				id="createOperation"
 				class="bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400 hidden"
@@ -309,9 +302,7 @@
 					</div>
 				</form>
 			</div>
-
 			<!-- EDIT OPERATION-->
-
 			<div
 				id="editModal"
 				class="hidden bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400"
@@ -383,7 +374,6 @@
 					</div>
 				</form>
 			</div>
-
 			<!--Modal de delete-->
 			<div
 				id="delete-modal-confirmation"
@@ -412,11 +402,7 @@
 					</div>
 				</div>
 			</div>
-
-			<!-- </div> -->
-
 			<!-- CATEGORIES-->
-
 			<div
 				id="categoriesAdd__box"
 				class="categoriesAdd__box bg-white w-80 md:w-4/6 px-7 rounded-xl mb-24 shadow-xl h-full hidden"
@@ -433,7 +419,7 @@
 					/>
 					<button
 						id="categoriesAdd__button"
-						class="categoriesAdd__button ml-2 w-8/12 md:w-2/12 bg-green-300 rounded h-10 shadow-xl mt-6"
+						class="categoriesAdd__button ml-2 w-8/12 md:w-2/12 bg-green-300 rounded h-10 shadow-xl mt-6 hover:border-4 border-transparent hover:border-green-600 hover:bg-white"
 					>
 						Agregar
 					</button>
@@ -442,7 +428,7 @@
 			</div>
 			<div
 				id="categoriesEdit__box"
-				class="categoriesEdit__box hidden bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400 md:mb-60"
+				class="categoriesEdit__box hidden bg-white w-80 md:w-4/6 flex flex-col flex-1 mx-32 px-16 rounded-xl my-10 border-2 border-[#F9A826] shadow-gray-400"
 			>
 				<h2 class="text-3xl font-semibold py-4 mt-20">Editar categoría</h2>
 				<label for="categoriesEdit__input">Nombre</label>
@@ -494,21 +480,14 @@
 					</div>
 				</div>
 			</div>
-			<!-- <button
-				id="clearLocalStorage"
-				class="categoriesAdd__button ml-2 w-2/12 bg-green-300 rounded h-10 shadow-xl ml-96 mb-32"
-			>
-				BORRAR TODO
-			</button> -->
-
 			<!--REPORTS-->
 			<div class="hidden flex justify-center pt-0 bg-gray-100" id="btn-reports">
 				<section
-					class="bg-white rounded drop-shadow-2xl border-2 border-[#F9A826] shadow-gray-400 2xl:w-full xl:w-full lg:w-full w-full lg:ml-6 lg:mt-0 mx-2 p-5 h-fit mb-40"
+					class="bg-white rounded drop-shadow-2xl border-2 border-[#F9A826] shadow-gray-400 2xl:w-full xl:w-full lg:w-full w-full lg:ml-6 lg:mt-0 mx-2 p-5 h-fit"
 				>
 					<h2 class="pb-5 lg:text-4xl text-3xl font-semibold">Reportes</h2>
 
-					<!-- section reports img -->
+					<!--REPORTS IMG -->
 					<div class="imageReportes hidden" id="imageReports">
 						<div class="p-2 sm:p-10 flex flex-col items-center w-full">
 							<img
@@ -524,9 +503,7 @@
 							</p>
 						</div>
 					</div>
-
-					<!-- section table reports -->
-					<!-- section table reports -->
+					<!-- SECTION REPORTS RESUME -->
 					<div class="overflow-x-auto mb:p-12" id="tableReports">
 						<div class="w-full">
 							<h3
@@ -594,11 +571,10 @@
 			src="https://kit.fontawesome.com/04baa38fa8.js"
 			crossorigin="anonymous"
 		></script>
-		<!-- JS DE OPERACIONES EN INDEX, CATEGORIAS Y REPORTES-->
+		<!-- JS-->
 		<script src="operations.js"></script>
 		<script src="categories.js"></script>
 		<script src="reports.js"></script>
-
-		<!-- CIERRE DE SCRIPTS DE OPERACIONES, CATEGORIAS Y REPORTES -->
+		<!--END -->
 	</body>
 </html>
